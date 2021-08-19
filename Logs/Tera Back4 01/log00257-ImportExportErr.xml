@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?><log event="ImportExportErr" loginGuid="9c7de57a-900f-4017-88f9-f22381dd6854" userId="2018248" userName="avusa\pklgn4bck" xmlns="http://www.teradp.com/schemas/GN4/1/Log.xsd"><description>XML import: object(s) input</description><error code="257" name="ImportError">Error importing XML: 'User avusa\pklgn4bck does not have permission to create story in folder '/Wires/AFP_Texts' (id: 1788) (ERR1330)' (ERR0257)</error><xml><story name="f0cf3c35-186d-48a5-8529-f1a2acdc2025" priority="medium" xmlns:gn4="urn:schemas-teradp-com:gn4tera" xmlns:lc="http://www.teradp.com/schemas/GN4/1/LoginContext.xsd" xmlns:oc="http://www.teradp.com/schemas/GN4/1/OperationContext.xsd" xmlns:nav="http://www.teradp.com/schemas/GN4/1/ObjNav.xsd" xmlns:fn="http://www.teradp.com/schemas/GN4/1/Xslt" xmlns:edfn="http://www.teradp.com/schemas/GN4/1/EditorialXslt" xmlns=""><rights><ref><keyVal>AFP</keyVal></ref></rights><sourceRef><keyVal>AFP</keyVal></sourceRef><sourceId>urn:newsml:afp.com:20190925T092240Z:TX-PAR-EJI37:1</sourceId><followId>urn:newsml:afp.com:20190925T092240Z:TX-PAR-EJI37:1</followId><sourceFileName>afp.com-20190925T092200Z-TX-PAR-EJI37.xml</sourceFileName><keywords><item>France</item><item>Europe</item><item>Medical Supplies</item><item>Other Health</item><item>Radiology</item><item>Pharmaceutical</item><item>Oncology</item><item>Stem Cells</item><item>Infectious Diseases</item><item>Hospitals</item><item>Genetics</item><item>Managed Care</item><item>General Health</item><item>Clinical Trials</item><item>Biotechnology</item><item>Health</item><item>PRESS-RELEASE-BUSINESS-WIRE</item></keywords><folderRef><keyVal>/Wires/AFP_Texts</keyVal></folderRef><title>Press Release from Business Wire: Pierre Fabre</title><authors></authors><summary>   
+Pierre Fabre today announced that new research from its oncology portfolio will be presented at this year's European Society for Medical Oncology (ESMO; 27 September-1 October, Barcelona, Spain) Annual Congress. Presentations will include study results for BRAFTOVI® (encorafenib) + MEKTOVI® (binimetinib) in BRAFV600E-mutant melanoma, and encorafenib + binimetinib plusErbitux® (cetuximab) in BRAFV600E-mutant metastatic colorectal cancer (mCRC), which is being developed in collaboration...</summary><city>CASTRES</city><xmlText><p>   
+Pierre Fabre today announced that new research from its oncology portfolio will be presented at this year's European Society for Medical Oncology (ESMO; 27 September-1 October, Barcelona, Spain) Annual Congress. Presentations will include study results for BRAFTOVI® (encorafenib) + MEKTOVI® (binimetinib) in BRAFV600E-mutant melanoma, and encorafenib + binimetinib plusErbitux® (cetuximab) in BRAFV600E-mutant metastatic colorectal cancer (mCRC), which is being developed in collaboration with Pfizer.
+</p><p>   
+"As a company committed to providing innovation through partnerships for patients who are underserved by current treatment options, we are pleased that key results from the Pierre Fabre oncology portfolio have been accepted for presentation at ESMO 2019 congress," said Jean Luc Lowinski, Chief Executive Officer of the Pierre Fabre Pharmaceuticals Division. "These data follow one year after the first approval for encorafenib and binimetinib in metastatic melanoma, and build on our unique therapeutic approaches that target specific tumour biomarkers with the goal of prolonging the lives of patients."
+</p><p>   
+At ESMO, BRAFTOVI® + MEKTOVI® feature in two poster presentations that highlight results of the combination therapy in patients with BRAFV600E-mutant melanoma brain metastases, with evidence of intracranial activity from a case series investigation. Expanded results from the Phase 3 BEACON CRC trial of encorafenib + binimetinib + cetuximab for the treatment of BRAFV600E-mutant mCRC will be presented as a late-breaking oral presentation, adding to the growing body of evidence for this investigational therapy, which could potentially be the first chemotherapy-free, targeted regimen for patients.
+</p><p>   Presentations
+</p><p>-0- *T 
+Title:
+Encorafenib plus Cetuximab With or Without Binimetinib for BRAFV600E-Mutant Metastatic Colorectal Cancer: Expanded Results from a Randomized, 3-Arm, Phase III Study vs. the Choice of Either Irinotecan or FOLFIRI plus Cetuximab (BEACON CRC)*
+Presenter:
+
+Josep Tabernero
+
+Abstract:
+
+LBA32 (Late breaking oral presentation; abstract available on the ESMO website on 30 September)
+Session:
+
+Proffered Paper 2 - Gastrointestinal tumours, colorectal
+
+Date/Time:
+
+Monday, 30 September, 08:00-08:45 Central European Summer Time (CEST)
+
+Location:
+
+Barcelona Auditorium (Hall 2)
+
+ 
+
+ 
+
+Title:
+Intracranial Anti-Tumor Activity in Melanoma Brain Metastases with Encorafenib Plus Binimetinib: A Multicenter, Retrospective Analysis
+Presenter:
+
+Jose Lutzky
+
+Abstract:
+
+1360P
+
+Session:
+
+Poster Display Session
+
+Date/Time:
+
+Monday, 30 September, 12:00-13:00 CEST
+
+Location:
+
+Poster Area (Hall 4)
+
+ 
+
+ 
+
+Title:
+A Phase 2, Open-Label, Randomized, Multicenter Trial of Encorafenib + Binimetinib Evaluating a Standard-dose and a High-dose Regimen in Patients With BRAFV600-Mutant Melanoma Brain Metastasis (MBM) (POLARIS)
+Presenter:
+
+Michael A. Davies
+
+Abstract:
+
+1379TiP
+
+Session:
+
+Poster Display Session
+
+Date/Time:
+
+Monday, 30 September, 12:00-13:00 CEST
+
+Location:
+
+Poster Area (Hall 4)
+*T</p><p>   About Colorectal CancerWorldwide, colorectal cancer is the third most common type of cancer in men and the second most common in women, with approximately 1.8 million new diagnoses in 2018. Globally in 2018, approximately 881,000 deaths were attributed to colorectal cancer.1 Every year more than 450,000 people in Europe are diagnosed with colorectal cancer and approximately 230,000 will die of their disease.2BRAF mutations are estimated to occur in up to 12% of patients with mCRC and represent a poor prognosis for these patients.3,4,5 The V600E mutation is the most common BRAF mutation and the risk of mortality in CRC patients with the BRAFV600E mutation is more than two times higher than for those with wild-type BRAF.6,2,7 Several irinotecan and cetuximab-containing regimens, similar to the BEACON CRC control arm, have established observed historical published benchmarks in patients with BRAFV600E-mutant mCRC, whose disease has progressed after one or two prior lines of therapy. These benchmarks include ORR of 4% to 8%, median PFS of 2 to 3 months and median OS of 4 to 6 months.8,9,10
+</p><p>   About BRAF-mutant Metastatic MelanomaMelanoma develops when unrepaired DNA damage to skin cells triggers mutations that may lead them to multiply and form malignant tumours. Metastatic melanoma is the most serious and life-threatening type of skin cancer and is associated with low survival rates.11,12 There are a variety of gene mutations that can lead to metastatic melanoma. The most common genetic mutation in metastatic melanoma is BRAF. There are more than 100,000 new cases of melanoma diagnosed in Europe each year,13 approximately half of which have BRAF mutations, a key target in the treatment of metastatic melanoma.14,15
+</p><p>   About BEACON CRCBEACON CRC is a randomised, open-label, global trial evaluating the efficacy and safety of encorafenib, binimetinib and cetuximab in patients with BRAFV600E-mutant mCRC whose disease has progressed after one or two prior regimens. BEACON CRC is the first and only Phase 3 trial designed to test a BRAF/MEK combination targeted therapy in BRAFV600E-mutant mCRC. Thirty patients were treated in the safety lead-in and received the triplet combination (encorafenib 300 mg daily, binimetinib 45 mg twice daily and cetuximab per label). Of the 30 patients, 29 had a BRAFV600 mutation. Microsatellite instability high, resulting from defective DNA mismatch repair, was detected in only one patient. As previously announced, the triplet combination demonstrated good tolerability, supporting initiation of the randomised portion of the trial. The randomised portion of the BEACON CRC trial is designed to assess the efficacy of encorafenib in combination with cetuximab with or without binimetinib compared with cetuximab and irinotecan-based therapy. 665 patients were randomised 1:1:1 to receive triplet combination, doublet combination (encorafenib and cetuximab) or the control arm (irinotecan-based therapy and cetuximab). The study was amended to include an interim analysis of endpoints, including ORR. The primary overall survival endpoint is a comparison of the triplet combination with the control arm. Secondary endpoints address efficacy of the doublet combination compared with the control arm, and the triplet combination compared with the doublet therapy. Other secondary endpoints include PFS, duration of response, safety and tolerability. Health-related quality of life data will also be assessed. The trial is being conducted at over 200 investigational sites in North America, South America, Europe and the Asia-Pacific region. The BEACON CRC trial is being conducted with support from Pierre Fabre, Ono Pharmaceutical Co. Ltd., and Merck KGaA, Darmstadt, Germany (support is for sites outside of North America).
+</p><p>   About encorafenib and binimetinibEncorafenib is an oral small-molecule BRAF kinase inhibitor and binimetinib) is an oral small-molecule MEK inhibitor that target key enzymes in the MAPK signalling pathway (RAS-RAF-MEK-ERK). Inappropriate activation of proteins in this pathway has been shown to occur in many cancers, including melanoma, colorectal cancer, non-small cell lung cancer and others.
+</p><p>   
+On 20 September 2018, the EC granted marketing authorisation for the combination of BRAFTOVI® (encorafenib) and MEKTOVI® (binimetinib) for the treatment of adult patients with unresectable or metastatic melanoma with a BRAFV600 mutation, as detected by a validated test.16,17 The EC decision is applicable to all 28 European Union member states plus Iceland, Liechtenstein and Norway. Encorafenib and binimetinib have also received regulatory approval in the United States (U.S.), Australia and Japan. On 27 June 2018, the combination of encorafenib and binimetinib was approved by the FDA for the treatment of unresectable or metastatic melanoma with a BRAFV600E or BRAFV600K mutation, as detected by an FDA-approved test.18,19 Encorafenib is not indicated for treatment of patients with wild-type BRAF melanoma. The Swiss Medicines Agency (Swissmedic) is currently reviewing the Marketing Authorisation Applications for encorafenib and binimetinib submitted by Pierre Fabre.
+</p><p>   
+Pfizer has exclusive rights to BRAFTOVI® and MEKTOVI® in the U.S. and Canada. Pfizer has granted Ono Pharmaceutical Co. Ltd., exclusive rights to commercialize both products in Japan and South Korea, Medison exclusive rights to commercialize both products in Israel and Pierre Fabre exclusive rights to commercialize both products in all other countries, including Europe, Latin American and Asia (excluding Japan and South Korea).
+</p><p>   About Pierre FabreWith a portfolio representing a continuum of activities spanning from prescription drugs and consumer healthcare products to dermo-cosmetics, Pierre Fabre is the 2nd largest dermo-cosmetics laboratory in the world, the 2nd largest private French pharmaceutical group and the market leader in France for products sold over the counter in pharmacies. Its portfolio includes several global brands and franchises among which Eau Thermale Avène, Klorane, Ducray, René Furterer, A-Derma, Galénic, Elancyl, Naturactive, Pierre Fabre Health Care, Pierre Fabre Oral Care, Pierre Fabre Dermatologie and Pierre Fabre Oncologie.
+</p><p>   
+In 2018, Pierre Fabre generated 2.3 billion euros in revenues, of which 64% came from its international business and 61% from its dermo-cosmetics division. Pierre Fabre, which has always been headquartered in the South-West of France, counts about 11,000 employees worldwide, owns subsidiaries and offices in 47 countries and enjoys distribution agreements in over 130 countries. In 2018, Pierre Fabre dedicated 187 million euros to R&amp;D efforts, split between oncology, consumer healthcare, dermatology and dermo-cosmetics.
+</p><p>   
+Pierre Fabre is 86%-owned by the Pierre Fabre Foundation, a government-recognised public-interest foundation, and secondarily by its own employees through an international employee stock ownership plan.
+</p><p>   
+In 2019, Ecocert Environment assessed the Group's corporate social and environmental responsibility approach according to the ISO 26000 standard on sustainable development and awarded it the ECOCERT 26000 "Excellence" level.
+</p><p>   www.pierre-fabre.com 
+ @PierreFabre
+</p><p>   References[1] The Global Cancer Observatory, 2018. International Agency for Research on Cancer, World Health Organization. Available at: https://gco.iarc.fr/today/online-analysis-multi-bars. Accessed September 2019.
+ [2] Colorectal Cancer in Europe: A Framework for Improving Outcomes for Patients. EuropaColon. Available at: https://webgate.ec.europa.eu/chafea_pdb/assets/files/pdb/20124301/20124301_d04-00_en_ps_ecwhitepaper.pdf. Accessed September 2019.
+ [3] Tveit KM, et al. J Clin Oncol. 2012;30(15):1755-62.
+ [4] Sorbye H, et al. PLoS One. 2015;10(6):e0131046.
+ [5] Vecchione L, et al. Cell. 2016;165(2):317-30.
+ [6] Sclafani F, et al. Crit Rev Oncol Hematol. 2013;87(1):55-68.
+ [7] Safaee Ardekani G, et al. PLoS One. 2012;7(10):e47054.
+ [8] Loupakis F, et al. Br J Cancer. 2009;101(4):715-21.
+ [9] De Roock W, et al. Lancet Oncol. 2010;11(8):753-62.
+ [10] Clinicaltrials.gov. US National Library of Medicine. S1406 phase II study of irinotecan and cetuximab with or without vemurafenib in BRAF mutant metastatic colorectal cancer.
+ [11] American Cancer Society. Melanoma Skin Cancer. Available at: https://www.cancer.org/cancer/melanoma-skin-cancer.html. Accessed September 2019.
+ [12] National Cancer Institute. Survival by Stage. Available at: https://seer.cancer.gov/statfacts/html/melan.html. Accessed September 2019.
+ [13] Melanoma Patient Network Europe. Melanoma - The Facts. Available at: http://www.melanomapatientnetworkeu.org/melanoma.html. Accessed September 2019.
+ [14] Klein O, et al. Eur J Cancer 2013;49:1073-1079.
+ [15] American Cancer Society. What Causes Melanoma Skin Cancer? 2016. Available at: https://www.cancer.org/cancer/melanoma-skin-cancer/causes-risks-prevention/what-causes.html. Accessed September 2019.
+ [16] European Medicines Agency. BRAFTOVI® (encorafenib) Summary of Product Characteristics. Available at: https://www.ema.europa.eu/documents/product-information/braftovi-epar-product-information_en.pdf. Accessed September 2019.
+ [17] European Medicines Agency. MEKTOVI® (binimetinib) Summary of Product Characteristics. Available at: https://www.ema.europa.eu/documents/product-information/mektovi-epar-product-information_en.pdf. Accessed September 2019.
+ [18] Array BioPharma. BRAFTOVI® (encorafenib) US Prescribing Information 2018. Available at: https://www.accessdata.fda.gov/drugsatfda_docs/label/2018/210496lbl.pdf. Accessed September 2019.
+ [19] Array BioPharma. MEKTOVI® (binimetinib) US Prescribing Information 2019. Available at: https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/210498s001lbl.pdf. Accessed September 2019.
+</p><p></p><p>   View source version on businesswire.com: https://www.businesswire.com/news/home/20190925005393/en/</p><p></p><p>   Contact</p><p>   Pierre Fabre Valérie Roucoules
+ (33) 1 49 10 83 84
+ valerie.roucoules@pierre-fabre.com
+</p><p>   
+© 2019 Business Wire, Inc.
+
+Disclaimer:
+This material is not an AFP editorial material, and AFP shall not bear responsibility for the accuracy of its content. In case you have any questions about the content, kindly refer to the contact person/entity mentioned in the text of the release.</p><p class="credit">AFP</p></xmlText><xmlFormatRef><keyVal>XHTML</keyVal></xmlFormatRef></story></xml></log>

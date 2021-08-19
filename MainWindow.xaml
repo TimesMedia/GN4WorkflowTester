@@ -1,0 +1,363 @@
+﻿<Window
+    x:Class="MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:TeraDP.GN4.WinUI.Controls;assembly=WinUI"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:tester="clr-namespace:TeraDP.GN4.Workflow"
+    Title="GN4 Workflow Tester" Height="680" Width="530" Icon="Resources/gn4.ico" MinHeight="520" MinWidth="300"
+    Closing="Window_Closing">
+  <Window.Resources>
+    <ImageSource x:Key="info">/WorkflowTester;component/Resources/Info.png</ImageSource>
+    <ImageSource x:Key="warning">/WorkflowTester;component/Resources/Warning.png</ImageSource>
+    <ImageSource x:Key="error">/WorkflowTester;component/Resources/Error.png</ImageSource>
+    <ImageSource x:Key="gn4_icon">/WorkflowTester;component/Resources/gn4.ico</ImageSource>
+    <Style TargetType="ListViewItem">
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
+  </Window.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <TabControl x:Name="MainTabControl" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="6,6,6,6">
+      <TabItem x:Name="ParametersTabItem" Header="Parameters">
+        <Grid Style="{StaticResource GridStyle}">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" MinHeight="120"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" MinHeight="50"/>
+          </Grid.RowDefinitions>
+          <GroupBox Grid.Row="0" Style="{StaticResource GroupBoxStyle}" Header="Workflow Type">
+            <StackPanel Orientation="Horizontal">
+              <RadioButton x:Name="SequentialRadioButton" Content="Sequential (batch)" HorizontalAlignment="Left" Margin="8,8,8,8" VerticalAlignment="Top" IsChecked="True"/>
+              <RadioButton x:Name="NavigatorRadioButton" Content="Navigator (interactive)" HorizontalAlignment="Center" Margin="8,8,8,8" VerticalAlignment="Top" />
+            </StackPanel>
+          </GroupBox>
+          <GroupBox x:Name="ObjectIdsGroupBox" Grid.Row="1" Style="{StaticResource GroupBoxStyle}" Header="Object Ids">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+                <TextBox x:Name="ObjectIdsTextBox" Style="{StaticResource TextBoxStyle}" Margin="2,2,2,2" LostFocus="ObjectIdsTextBox_LostFocus"/>
+                <Label Content="(insert ids as comma-separated string: 1,2,3,4...)" FontStyle="Italic" />
+              </StackPanel>
+              <TextBox x:Name="ObjectIdsErrorTextBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Foreground="Red" BorderThickness="0" Background="Transparent" 
+								Text="{Binding Text, Mode=OneWay}" IsReadOnly="True" Height="Auto" Visibility="Collapsed" />
+              <Button x:Name="ObjectIdsClearButton" Grid.Row="0" Grid.Column="1" Content="Clear" Style="{StaticResource SmallButtonStyle}" />
+            </Grid> 
+          </GroupBox>
+          <GroupBox x:Name="ParametersGroupBox" Grid.Row="2" Style="{StaticResource GroupBoxStyle}" Header="Parameters">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <Label Grid.Row="0" Grid.Column="0" Content="Name"/>
+              <TextBox x:Name="ParametersNameTextBox" Style="{StaticResource TextBoxStyle}" Grid.Row="0" Grid.Column="1" Margin="2,2,2,2" />
+              <Button x:Name="ParametersAddButton" Grid.Row="0" Grid.Column="2" Content="Add" Style="{StaticResource SmallButtonStyle}" />
+              <Label Grid.Row="1" Grid.Column="0" Content="Value" />
+              <TextBox x:Name="ParametersValueTextBox" Style="{StaticResource TextBoxStyle}" Grid.Row="1" Grid.Column="1" Margin="2,2,2,2" />
+              <Button x:Name="ParametersRemoveButton" Grid.Row="1" Grid.Column="2" Content="Remove"  Style="{StaticResource SmallButtonStyle}" />
+              <TextBox x:Name="ParametersErrorTextBox" TextWrapping="Wrap" Foreground="Red" BorderThickness="0" Background="Transparent" 
+		 			 		  Text="{Binding Text, Mode=OneWay}" IsReadOnly="True" Height="Auto" Visibility="Collapsed" 
+   							Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+              <Button x:Name="ParametersClearButton" Grid.Row="3" Grid.Column="2" Content="Clear"  Style="{StaticResource SmallButtonStyle}" />
+              <ListView x:Name="ParametersListView" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Height="110" SelectionMode="Single"  Margin="0,0,0,0">
+                <ListView.View>
+                  <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"
+                       HeaderContainerStyle="{StaticResource GridViewColumnStyle}" />
+                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}"
+                       HeaderContainerStyle="{StaticResource GridViewColumnStyle}" />
+                  </GridView>
+                </ListView.View>
+              </ListView>
+            </Grid>
+          </GroupBox>
+          <GroupBox x:Name="DataGroupBox" Grid.Row="3" Style="{StaticResource GroupBoxStyle}" Header="Data">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <ListView x:Name="DataListView" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" SelectionMode="Extended" MinHeight="80" Margin="0,0,2,0" VerticalAlignment="Stretch"/>
+              <Button x:Name="DataBrowse" Grid.Row="0" Grid.Column="1" Content="Browse..." Style="{StaticResource SmallButtonStyle}" />
+              <Button x:Name="DataRemoveButton" Grid.Row="1" Grid.Column="1" Content="Remove" Style="{StaticResource SmallButtonStyle}" />
+              <Button x:Name="DataClearButton" Grid.Row="2" Grid.Column="1" Content="Clear" Style="{StaticResource SmallButtonStyle}" />
+            </Grid>
+          </GroupBox>
+          <GroupBox x:Name="EmailGroupBox" Grid.Row="4" Style="{StaticResource GroupBoxStyle}" Header="Email">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <TextBox x:Name="EmailTextBox" Grid.Row="0" Grid.Column="0" Style="{StaticResource TextBoxStyle}" IsReadOnly="True" />
+              <Label Content="(select the .eml file)" Grid.Row="1" Grid.Column="0" FontStyle="Italic" />
+              <Button x:Name="EmailBrowse" Grid.Row="0" Grid.Column="1" Content="Browse..." Style="{StaticResource SmallButtonStyle}" />
+              <Button x:Name="EmailClearButton" Grid.Row="1" Grid.Column="1" Content="Clear" Style="{StaticResource SmallButtonStyle}" />
+            </Grid>
+          </GroupBox>
+          <Button x:Name="ExecuteButton" Grid.Row="5" Content="Execute" Style="{StaticResource BigButtonStyle}" Click="ExecuteButton_Click"/>
+        </Grid>
+      </TabItem>
+      <TabItem x:Name="ResultTabItem" Header="Result">
+        <TabControl x:Name="ProgressTabControl">
+          <TabItem x:Name="ProgressTabItem" Header="Progress">
+            <Grid Style="{StaticResource GridStyle}">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <GroupBox Style="{StaticResource GroupBoxStyle}" Header="Messages" Grid.Row="0" MinHeight="200">
+                <RichTextBox x:Name="ProgressRichTextBox" Margin="6,6,6,6" VerticalScrollBarVisibility="Auto" />
+              </GroupBox>
+              <GroupBox x:Name="LogsGroupBox" Style="{StaticResource GroupBoxStyle}" Header="Logs" Grid.Row="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="6,6,6,6">
+                  <Grid x:Name="LogsGrid">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="Auto" />
+                      <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBox Name="ResultTextBox" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
+                      TextWrapping="Wrap" Background="Transparent" BorderThickness="0" Text="{Binding Text, Mode=OneWay}" IsReadOnly="True" />
+                  </Grid>
+                </ScrollViewer>
+              </GroupBox> 
+              <Button x:Name="ProgressClipboardButton" Grid.Row="2" Content="Copy To Clipboard" Style="{StaticResource BigButtonStyle}" />
+            </Grid>
+          </TabItem>
+          <TabItem x:Name="OutputTabItem" Header="Output">
+            <Grid Style="{StaticResource GridStyle}">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <RichTextBox x:Name="OutputRichTextBox" Grid.Row="0" Margin="6,6,6,6" VerticalScrollBarVisibility="Auto" />
+              <Button x:Name="OutputClipboardButton" Grid.Row="1" Content="Copy To Clipboard" Style="{StaticResource BigButtonStyle}" />
+            </Grid>
+          </TabItem>
+        </TabControl>
+      </TabItem>
+      <TabItem x:Name="WorkflowTabItem" Header="Workflow">
+        <TabControl>
+          <TabItem Header="File">
+            <Grid Style="{StaticResource GridStyle}">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="File Name" />
+                <TextBox Grid.Column="1" x:Name="FileNameTextBox" Style="{StaticResource TextBoxStyle}" Margin="6,6,6,6"/>
+              </Grid>
+              <RichTextBox x:Name="WorkflowRichTextBox" Grid.Row="1" Margin="6,6,6,6" VerticalScrollBarVisibility="Auto" />
+              <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="WorkflowResetButton" Grid.Column="1" Content="Reset" Style="{StaticResource BigButtonStyle}" />
+                <Button x:Name="WorkflowSaveButton" Grid.Column="2" Content="Save To File" Style="{StaticResource BigButtonStyle}" />
+                <Button x:Name="WorkflowLoadButton" Grid.Column="3" Content="Load From File" Style="{StaticResource BigButtonStyle}" />
+                <Button x:Name="WorkflowClipboardButton" Grid.Column="4" Content="Copy To Clipboard" Style="{StaticResource BigButtonStyle}" />
+              </Grid>
+            </Grid>
+          </TabItem>
+
+          <tester:DatabaseTabItem Header="Database">
+          </tester:DatabaseTabItem>
+
+          <TabItem x:Name="ReferencesTabItem" Header="References">
+            <Grid Style="{StaticResource GridStyle}">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <GroupBox x:Name="AttributesGroupBox" Grid.Row="0" Style="{StaticResource GroupBoxStyle}" Header="Workflow attributes">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                  </Grid.RowDefinitions>
+                  <Label Grid.Row="0" Grid.Column="0" Content="Description" />
+                  <TextBox x:Name="DescriptionTextBox" Style="{StaticResource TextBoxStyle}" Grid.Row="0" Grid.Column="1" Margin="2,2,2,2" />
+                  <Label Grid.Row="1" Grid.Column="0" Content="Display Progress" />
+                  <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                    <RadioButton x:Name="DisplayProgressRadioButton" Content="True" HorizontalAlignment="Left" Margin="8,8,8,8" VerticalAlignment="Top" IsChecked="True"/>
+                    <RadioButton x:Name="NoProgressRadioButton" Content="False" HorizontalAlignment="Center" Margin="8,8,8,8" VerticalAlignment="Top" />
+                  </StackPanel>
+                  <Label Grid.Row="2" Grid.Column="0" Content="Timeout" />
+                  <TextBox x:Name="TimeoutTextBox" Style="{StaticResource TextBoxStyle}" Grid.Row="2" Grid.Column="1" Margin="2,2,2,2" 
+                    LostFocus="TimeoutTextBox_LostFocus" />
+                  <TextBox Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" BorderThickness="0" Background="Transparent" FontStyle="Italic"
+								    Text="(only for Navigator. Default: '00:05:00', five minutes)" IsReadOnly="True" Height="Auto" />
+                  <TextBox x:Name="TimeoutErrorTextBox" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Foreground="Red" BorderThickness="0" Background="Transparent" 
+								    Text="{Binding Text, Mode=OneWay}" IsReadOnly="True" Height="Auto" Visibility="Collapsed" />
+                </Grid>
+              </GroupBox>
+              <GroupBox x:Name="ReferencesGroupBox" Grid.Row="1" Style="{StaticResource GroupBoxStyle}" Header="References">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                  </Grid.RowDefinitions>
+                  <TextBox x:Name="ReferencesTextBox" Style="{StaticResource TextBoxStyle}" Grid.Row="0" Grid.Column="0" Margin="2,2,2,2" />
+                  <Button x:Name="ReferencesAddButton" Grid.Row="0" Grid.Column="1" Content="Add" Style="{StaticResource SmallButtonStyle}" />
+                  <Button x:Name="ReferencesRemoveButton" Grid.Row="2" Grid.Column="1" Content="Remove"  Style="{StaticResource SmallButtonStyle}" />
+                  <Button x:Name="ReferencesClearButton" Grid.Row="3" Grid.Column="1" Content="Clear"  Style="{StaticResource SmallButtonStyle}" />
+                  <TextBox x:Name="ReferencesErrorTextBox" TextWrapping="Wrap" Foreground="Red" BorderThickness="0" Background="Transparent" 
+  		 			 		    Text="{Binding Text, Mode=OneWay}" IsReadOnly="True" Height="Auto" Visibility="Collapsed"
+     							  Grid.Row="1" Grid.Column="0" />
+                  <ListView x:Name="ReferencesListView" Grid.Row="2" Grid.RowSpan="3" Grid.Column="0" SelectionMode="Extended" Margin="2,2,2,2">
+                    <ListView.View>
+                      <GridView AllowsColumnReorder="False">
+                        <GridViewColumn Header="Library" HeaderContainerStyle="{StaticResource GridViewColumnStyle}" />
+                      </GridView>
+                    </ListView.View>
+                  </ListView>
+                  <Label x:Name="ReferencesLabel" FontStyle="Italic" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Label.Content>
+                      <TextBlock>
+                        <TextBlock.Text>
+                          <MultiBinding StringFormat="(write the name or the full path of the dll.{0}The '.\' token is replaced by the current directory: '.\GNClient.dll)">
+                            <Binding Source="{x:Static System:Environment.NewLine}"/>
+                          </MultiBinding>
+                        </TextBlock.Text>
+                      </TextBlock>
+                    </Label.Content>
+                  </Label>
+                </Grid>
+              </GroupBox>
+              <GroupBox x:Name="CommentsGroupBox" Grid.Row="2" Style="{StaticResource GroupBoxStyle}" Header="Comments">
+                <Grid Style="{StaticResource GridStyle}">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                  </Grid.RowDefinitions>
+                  <Label Content="&lt;!-- " Grid.Row="0" Grid.Column="0" FontWeight="Bold" />
+                  <TextBox x:Name="CommentTextBox" Style="{StaticResource TextBoxStyle}" Margin="2,2,2,2" Grid.Row="0" Grid.Column="1" />
+                  <Label Content="--&gt;" Grid.Row="0" Grid.Column="2" FontWeight="Bold" />
+                  <Label Content="&lt;!--" Grid.Row="1" FontWeight="Bold" />
+                  <RichTextBox x:Name="CommentRichTextBox" Grid.Row="2" Margin="6,6,6,6" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" />
+                  <Label Content="--&gt;" Grid.Row="3" FontWeight="Bold" />
+                  <Button x:Name="CommentClearButton" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Content="Clear" Style="{StaticResource SmallButtonStyle}"
+                    HorizontalAlignment="Right" />
+                </Grid>
+              </GroupBox>
+            </Grid>
+          </TabItem>
+        </TabControl>
+      </TabItem>
+      <TabItem x:Name="SettingsTabItem" Header="Settings">
+        <Grid Style="{StaticResource GridStyle}">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <GroupBox Style="{StaticResource GroupBoxStyle}" Grid.Row="0" Header="General">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <Label Content="Source files folder:" Grid.Row="0" Grid.Column="0"/>
+              <Button x:Name="SolutionBrowse" Grid.Row="0" Grid.Column="1" Content="Browse..." Style="{StaticResource SmallButtonStyle}" HorizontalAlignment="Right"/>
+              <TextBox x:Name="SettingsSolutionFolderTextBox" Style="{StaticResource TextBoxStyle}" Margin="0,6,0,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+              <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" BorderThickness="0" Background="Transparent" FontStyle="Italic"
+								Text="(select the folder containing the SequentialProgram.vb and NavigatorProgram.vb files)" IsReadOnly="True" Height="Auto" />
+            </Grid>
+          </GroupBox>
+          <GroupBox Style="{StaticResource GroupBoxStyle}" Grid.Row="1" Header="Navigator Workflow">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <Label Content="GN4 Url:" Grid.Row="0" Grid.Column="0"/>
+              <TextBox x:Name="SettingsGN4UrlTextBox" Style="{StaticResource TextBoxStyle}" Margin="0,6,0,0" Grid.Row="0" Grid.Column="1" />
+              <Label Content="User Name:" Grid.Row="1" Grid.Column="0"/>
+              <TextBox x:Name="SettingsUserNameTextBox" Style="{StaticResource TextBoxStyle}" Margin="0,6,0,0" Grid.Row="1" Grid.Column="1" />
+              <Label Content="Password:" Grid.Row="2" Grid.Column="0"/>
+              <TextBox x:Name="SettingsPasswordTextBox" Style="{StaticResource TextBoxStyle}" Margin="0,6,0,0" Grid.Row="2" Grid.Column="1" />
+            </Grid>
+          </GroupBox>
+        </Grid>
+      </TabItem>
+    </TabControl>
+  </Grid>
+</Window>

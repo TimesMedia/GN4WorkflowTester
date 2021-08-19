@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XmlImportOptions
+  xmlns="http://www.teradp.com/schemas/GN4/1/XmlImportOptions.xsd"
+  Validate="false"
+  Overwrite="true"
+  NewVersion="false"
+  CopyAlways="false"
+  SpikeChildren="false"
+  IgnoreIds="true">
+  <Xslt>
+  </Xslt>
+  <Pars/>
+  <DefaultObjects/>
+</XmlImportOptions>

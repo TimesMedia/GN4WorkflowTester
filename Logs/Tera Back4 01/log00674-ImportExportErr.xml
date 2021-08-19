@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?><log event="ImportExportErr" loginGuid="9c7de57a-900f-4017-88f9-f22381dd6854" userId="2018248" userName="avusa\pklgn4bck" xmlns="http://www.teradp.com/schemas/GN4/1/Log.xsd"><description>XML import: object(s) input</description><error code="257" name="ImportError">Error importing XML: 'User avusa\pklgn4bck does not have permission to create story in folder '/Wires/AFP_Texts' (id: 1788) (ERR1330)' (ERR0257)</error><xml><story name="50f34d30-5e67-444c-b63b-814c956331f3" priority="medium" xmlns:gn4="urn:schemas-teradp-com:gn4tera" xmlns:lc="http://www.teradp.com/schemas/GN4/1/LoginContext.xsd" xmlns:oc="http://www.teradp.com/schemas/GN4/1/OperationContext.xsd" xmlns:nav="http://www.teradp.com/schemas/GN4/1/ObjNav.xsd" xmlns:fn="http://www.teradp.com/schemas/GN4/1/Xslt" xmlns:edfn="http://www.teradp.com/schemas/GN4/1/EditorialXslt" xmlns=""><rights><ref><keyVal>AFP</keyVal></ref></rights><sourceRef><keyVal>AFP</keyVal></sourceRef><sourceId>urn:newsml:afp.com:20190925T130956Z:TX-PAR-EJN66:1</sourceId><followId>urn:newsml:afp.com:20190925T130956Z:TX-PAR-EJN66:1</followId><sourceFileName>afp.com-20190925T130900Z-TX-PAR-EJN66.xml</sourceFileName><keywords><item>Data Management</item><item>Technology</item><item>Human Resources</item><item>University</item><item>Small Business</item><item>Education</item><item>General Health</item><item>Professional Services</item><item>Environment</item><item>Software</item><item>Health</item><item>Europe</item><item>Finland</item><item>Asia Pacific</item><item>PRESS-RELEASE-BUSINESS-WIRE</item></keywords><folderRef><keyVal>/Wires/AFP_Texts</keyVal></folderRef><title>Press Release from Business Wire: The City of Espoo</title><authors></authors><summary>   
+The City of Espoo is one of the six winners of European Capital of Innovation (iCapital) Award 2019. Nantes (France) was announced as the new European Capital of Innovation at European Research and Innovation Days in Brussels on 25 September.
+   This press release features multimedia. View the full release here: https://www.businesswire.com/news/home/20190925005536/en/   The City of Espoo is among six winners of European Commission's European Capital of Innovation (iCapital) Award for...</summary><city>ESPOO</city><xmlText><p>   
+The City of Espoo is one of the six winners of European Capital of Innovation (iCapital) Award 2019. Nantes (France) was announced as the new European Capital of Innovation at European Research and Innovation Days in Brussels on 25 September.
+</p><p>   This press release features multimedia. View the full release here: https://www.businesswire.com/news/home/20190925005536/en/</p><p>   The City of Espoo is among six winners of European Commission's European Capital of Innovation (iCapital) Award for using innovation to improve lives of citizens. Photo: The City of Espoo</p><p>   
+Espoo's City as a Service model was the city's key to success in the iCapital competition. City as a Service means that Espoo uses co-creation and digital innovation to ensure good quality public services and high quality of living. Espoo develops services together with residents, companies and the research community as well as uses artificial intelligence and data analytics to foster digital equality and social inclusion. For example:
+</p><p>   -- Omnia AI Lab, Espoo city's adult education initiative, trained the world's first 100 senior citizens as AI mentors to promote digital equality.</p><p>   -- The City of Espoo and the Finnish software and service company Tieto completed an AI experiment that recognised risk group who need social support the most. The experiment used data of approximately 520,000 people and more than 37 million customer contacts.</p><p>   -- Espoo aims to become the forerunner in developing ethical rules for AI to secure the data of its citizens.</p><p>   
+Espoo received a prize of EUR 100,000 for being a top 6 city in the iCapital awards. The prize money will be used to continue similar digital experiments.
+</p><p>   
+"We are going to continue piloting solution that decrease social exclusion and this way creates wellbeing. The big themes that we want to support are, for example, social integration and prevention of poverty of families with children," says Mayor Jukka Mäkelä.
+</p><p>   
+In addition to Espoo and Nantes (France), other iCapital top 6 cities were Antwerp (Belgium), Bristol (United Kingdom), Glasgow (United Kingdom) and Rotterdam (Netherlands).
+</p><p>   Good work-life balance attracts talents to Espoo
+</p><p>   
+While City as a Service is directed at current residents, Espoo also has a similar service model in place for international talents - Talent Boost Espoo.
+</p><p>   
+Talent Boost Espoo is a community-driven initiative on the local level and part of the national Talent Boost Finland program. By partnering with local businesses and higher education institutes like Aalto University, Talent Boost Espoo paves the way for international talents to get a successful start to building a life and career in Espoo.
+</p><p>   
+In addition to providing services that make it easy for talents to set their roots in the city, a healthy work-life balance is something that comes with the package of living in Espoo.
+</p><p>   
+"Stress and long hours kill creativity. In Espoo, we have a healthy balance of work and free time. Espoo's nature is stunning and it's always close by - it's a vital and energising resource in our lives," explains Jaana Tuomi from Espoo Marketing.
+</p><p></p><p>   View source version on businesswire.com: https://www.businesswire.com/news/home/20190925005536/en/</p><p></p><p>   Contact</p><p>   
+Jukka Mäkelä, Mayor
+ tel. +35846 877 3953
+ jukka.makela@espoo.fi 
+  Päivi Sutinen, Services Development Director
+ tel. +35846 8772 871
+ paivi.sutinen@espoo.fi 
+  Jasmin Repo, EU Affairs Coordinator
+ tel. +35843 826 6886
+ jasmin.repo@espoo.fi
+</p><p>   
+© 2019 Business Wire, Inc.
+
+Disclaimer:
+This material is not an AFP editorial material, and AFP shall not bear responsibility for the accuracy of its content. In case you have any questions about the content, kindly refer to the contact person/entity mentioned in the text of the release.</p><p class="credit">AFP</p></xmlText><xmlFormatRef><keyVal>XHTML</keyVal></xmlFormatRef></story></xml></log>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?><log event="ImportExportErr" loginGuid="4acd984c-b902-41bd-b506-44db4ac9b28a" userId="4" userName="Administrator" xmlns="http://www.teradp.com/schemas/GN4/1/Log.xsd"><description>XML export: input for the associated XSL transformation</description><error code="254" name="ExportTransformError">Error applying the XML export XSL transformation: 'Object reference not set to an instance of an object.' (ERR0254)</error><xml><article nav:objectType="article" id="obj6987233" name="281119betting" modifiedDate="2019-11-28T09:03:19.837Z" sentDate="2019-11-28T09:03:19.837Z" creationDate="2019-11-28T08:38:59.590Z" folderKind="editorial" rating="0" bodyTextH="240376" bodyNParas="19" bodyNLines="21" bodyNWords="66" bodyNChars="317" duration="20" xmlns="urn:schemas-teradp-com:gn4tera" xmlns:nav="http://www.teradp.com/schemas/GN4/1/ObjNav.xsd"><nav:objectTypeAttrs mediaType="Complex" deadlineGap="0" textElement="" textAttrib="" typeKind="" typeLink="" /><nav:creation /><nav:modified /><nav:referencing><nav:referencingBy attrName="objGroup.objs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="txt.inlineObjs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="pubDest.objs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="pubDest.preObjs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="task.products"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="crops.containerRef"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="article.related"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="extDoc.articles"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="layer.inlineObjs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="webComment.objectRef"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="bulletin.objs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="mediaGallery.objs"><nav:refs handle="1" /></nav:referencingBy></nav:referencing><folderRef idref="obj311561"><nav:refObject idref="obj311561" /></folderRef><creatorRef idref="obj1425104"><nav:refObject idref="obj1425104" /></creatorRef><modifierRef idref="obj1425104"><nav:refObject idref="obj1425104" /></modifierRef><senderRef idref="obj1425104"><nav:refObject idref="obj1425104" /></senderRef><variants nav:handle="1" /><externals nav:handle="1" /><title></title><keywords nav:handle="1" /><cats nav:handle="1" /><aCats nav:handle="1" /><catsList></catsList><summary></summary><pubInfo nav:handle="1" /><isPublished>false</isPublished><pageLayers nav:handle="1" /><linked>BD 25/12/2019 01BD2511MainBody 19 Sport AL BD_Mainbody</linked><lockLevel>0</lockLevel><assigns nav:handle="1" /><assigned></assigned><isLinked>true</isLinked><sourceId></sourceId><sourceFileName></sourceFileName><txts nav:handle="1"><body nav:objectType="body" id="obj6987234" name="281119betting_22842" modifiedDate="2019-11-28T09:03:19.837Z" sentDate="2019-11-28T09:03:19.837Z" creationDate="2019-11-28T08:38:59.590Z" folderKind="editorial" rating="0" size="2444" textH="240376" counted="true" nParas="19" nLines="21" nWords="66" nChars="317"><nav:objectTypeAttrs mediaType="Text" deadlineGap="0" textElement="" textAttrib="" typeKind="body" typeLink=""><description>Body</description></nav:objectTypeAttrs><nav:creation /><nav:modified /><nav:referencing><nav:parentBy attrName="article.txts"><nav:refs handle="1" /></nav:parentBy><nav:referencingBy attrName="objGroup.objs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="txt.inlineObjs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="pubDest.objs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="pubDest.preObjs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="task.products"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="crops.containerRef"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="article.related"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="layer.inlineObjs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="extDocJumpPart.txtRef"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="txtGeometry.txtRef"><nav:refs handle="1"><nav:refObject idref="obj6988017"><txtGeometry nav:objectType="txtGeometry" id="obj6988017" name="281119betting_22842" modifiedDate="2019-11-28T08:42:30.567Z" justified="true" textH="240376" overH="-1124" textOverN="0" overfullLines="0" nNoFitParas="0"><nav:objectTypeAttrs mediaType="None" deadlineGap="0" textElement="" textAttrib="" typeKind="" typeLink="" /><nav:creation /><nav:modified /><nav:referencing><nav:referencingBy attrName="pubDest.objs" /><nav:referencingBy attrName="pubDest.preObjs" /><nav:referencingBy attrName="pageLayer.txtGeos" /></nav:referencing><txtRef idref="obj6987234"><nav:refObject idref="obj6987234" /></txtRef><regionRef idref="obj312105"><nav:refObject idref="obj312105" /></regionRef><folderRef idref="obj311561"><nav:refObject idref="obj311561" /></folderRef><contextRef idref="obj6743642"><nav:refObject idref="obj6743642" /></contextRef><data /><localGeometry /><jumps nav:handle="1" /></txtGeometry></nav:refObject></nav:refs></nav:referencingBy><nav:referencingBy attrName="webComment.objectRef"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="bulletin.objs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="mediaGallery.objs"><nav:refs handle="1" /></nav:referencingBy></nav:referencing><folderRef idref="obj311561"><nav:refObject idref="obj311561" /></folderRef><creatorRef idref="obj1425104"><nav:refObject idref="obj1425104" /></creatorRef><modifierRef idref="obj1425104"><nav:refObject idref="obj1425104" /></modifierRef><senderRef idref="obj1425104"><nav:refObject idref="obj1425104" /></senderRef><variants nav:handle="1" /><externals nav:handle="1" /><title></title><keywords nav:handle="1" /><cats nav:handle="1" /><aCats nav:handle="1" /><catsList></catsList><summary></summary><pubInfo nav:handle="1" /><isPublished>false</isPublished><pageLayers nav:handle="1" /><linked>BD 25/12/2019 01BD2511MainBody 19 Sport AL BD_Mainbody</linked><lockLevel>0</lockLevel><assigns nav:handle="1" /><assigned></assigned><isLinked>true</isLinked><sourceId></sourceId><sourceFileName></sourceFileName><tText xml:space="preserve"><t:t xml:space="preserve" xmlns:t="http://www.teradp.com/schemas/GN3/t.xsd">
+            <t:p area="true">
+              <t:tag n="turfhd" />Latest betting</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />
+              <t:tag n="eld" p0="4" />Summer Cup</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />
+              <t:tag n="eld" p0="6" />33-10 <t:tag n="res" />Soqrat</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />7-2<t:tag n="res" /> Barahin</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />6-1 <t:tag n="res" />Queen Supreme</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />11-1 <t:tag n="res" />Cascaoedia</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />13-1 <t:tag n="res" />Al Mutawakel, Roy Had <t:el />Enough</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />15-1 <t:tag n="res" />Zilzaal</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />16-1<t:tag n="res" /> Atyaab</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />20-1 <t:tag n="res" />Green Haze, Dawn Assault, <t:el />Divine Odyssey</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />25-1 <t:tag n="res" />Others</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />
+              <t:tag n="eld" p0="6" />Dingaans</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />15-10<t:tag n="res" /> Frosted Gold</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />5-2 <t:tag n="res" />Marshall</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />33-10 <t:tag n="res" />Eden Roc</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />8-1 <t:tag n="res" />Promiseofamaster</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />10-1<t:tag n="res" /> Astrix</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />16-1 <t:tag n="res" />Others</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />
+              <t:tag n="eld" p0="4" />Source: <t:tag n="res" />Bookmaker Lance Michael </t:p>
+          </t:t></tText><contextRef idref="obj6743642"><nav:refObject idref="obj6743642" /></contextRef><inlineObjs nav:handle="1" /><notes></notes><sectionColor>colorSport</sectionColor><sectionHead>headSport</sectionHead></body></txts><plainText>
+              Latest betting
+
+
+              
+              Summer Cup
+
+
+              
+              33-10 Soqrat
+
+
+              7-2 Barahin
+
+
+              6-1 Queen Supreme
+
+
+              11-1 Cascaoedia
+
+
+              13-1 Al Mutawakel, Roy Had Enough
+
+
+              15-1 Zilzaal
+
+
+              16-1 Atyaab
+
+
+              20-1 Green Haze, Dawn Assault, Divine Odyssey
+
+
+              25-1 Others
+
+
+              
+              Dingaans
+
+
+              15-10 Frosted Gold
+
+
+              5-2 Marshall
+
+
+              33-10 Eden Roc
+
+
+              8-1 Promiseofamaster
+
+
+              10-1 Astrix
+
+
+              16-1 Others
+
+
+              
+              Source: Bookmaker Lance Michael 
+</plainText><related nav:handle="1" /><contentPosition nav:handle="1" /><authors></authors><instructions></instructions><credit></credit><orgSource></orgSource><location></location><city></city><state></state><country></country><position /><notes></notes><nImgs>0</nImgs><headline></headline></article></xml></log>

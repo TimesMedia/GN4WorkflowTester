@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><log event="ImportExportErr" loginGuid="9c7de57a-900f-4017-88f9-f22381dd6854" userId="2018248" userName="avusa\pklgn4bck" xmlns="http://www.teradp.com/schemas/GN4/1/Log.xsd"><description>XML import: object(s) input</description><error code="257" name="ImportError">Error importing XML: 'User avusa\pklgn4bck does not have permission to create story in folder '/Wires/AFP_Texts' (id: 1788) (ERR1330)' (ERR0257)</error><xml><story name="097d7495-2510-4a7b-9d94-1dc2be8e224d" priority="medium" xmlns:gn4="urn:schemas-teradp-com:gn4tera" xmlns:lc="http://www.teradp.com/schemas/GN4/1/LoginContext.xsd" xmlns:oc="http://www.teradp.com/schemas/GN4/1/OperationContext.xsd" xmlns:nav="http://www.teradp.com/schemas/GN4/1/ObjNav.xsd" xmlns:fn="http://www.teradp.com/schemas/GN4/1/Xslt" xmlns:edfn="http://www.teradp.com/schemas/GN4/1/EditorialXslt" xmlns=""><rights><ref><keyVal>AFP</keyVal></ref></rights><sourceRef><keyVal>AFP</keyVal></sourceRef><sourceId>urn:newsml:afp.com:20190925T080020Z:TX-PAR-EJG42:1</sourceId><followId>urn:newsml:afp.com:20190925T080020Z:TX-PAR-EJG42:1</followId><sourceFileName>afp.com-20190925T080000Z-TX-PAR-EJG42.xml</sourceFileName><keywords><item>Asia Pacific</item><item>United Kingdom</item><item>Europe</item><item>Singapore</item><item>Technology</item><item>Finance</item><item>Security</item><item>Other Technology</item><item>Professional Services</item><item>Software</item><item>Data Management</item><item>PRESS-RELEASE-BUSINESS-WIRE</item></keywords><folderRef><keyVal>/Wires/AFP_Texts</keyVal></folderRef><title>Press Release from Business Wire: SmartStream Technologies</title><authors></authors><summary>   
+SmartStream Technologies, the financial Transaction Lifecycle Management (TLM®) solutions provider, today launched artificial intelligence (AI) into its existing managed service offering, which covers reconciliations, corporate actions, cash management and reference data. SmartStream has worked alongside its clients to introduce AI into their managed services offering that will reduce operating costs and pricing, as well as improving operational efficiency and reporting.
+   
+The new AI...</summary><city>LONDON</city><xmlText><p>   
+SmartStream Technologies, the financial Transaction Lifecycle Management (TLM®) solutions provider, today launched artificial intelligence (AI) into its existing managed service offering, which covers reconciliations, corporate actions, cash management and reference data. SmartStream has worked alongside its clients to introduce AI into their managed services offering that will reduce operating costs and pricing, as well as improving operational efficiency and reporting.
+</p><p>   
+The new AI service increases the quality of managed services with new monitoring tools, it will trace incoming messages for SLA's - ensuring data is delivered correctly. It provides a proactive approach to monitoring, if the quality of the data is poor it is escalated, thereby lowering the number of exceptions feeding regulatory reporting, for example, such as the FCA's CASS reporting and Risk Weighted Asset Calculations. This all combined improves accuracy of operational risk and controls reporting within an organisation.
+</p><p>   
+Nick Smith, SVP Managed Services, SmartStream, states: "It's a very exciting time for our clients, the new AI function is taking the stress out of data reporting, a significant improvement to back office efficiency, whilst helping to lower costs. In addition, it enables the bank to maintain a control team to monitor performance and results on a daily basis."
+</p><p></p><p>   View source version on businesswire.com: https://www.businesswire.com/news/home/20190925005212/en/</p><p></p><p>   Contact</p><p>   
+Mark Roth, CMO, SmartStream Technologies
+ (646) 244-5097
+ mark.roth@smartstream-stp.com
+</p><p>   
+Shamira Alidina, Media Relations Director, Dina Communications
+ +44 (0) 7801 590718
+ shamira@dinacomms.com
+</p><p>   
+Nathan Gee, Marketing Director, SmartStream Technologies
+ +44 (0) 20 7898 0630
+ nathan.gee@smartstream-stp.com
+</p><p>   
+For more information about SmartStream visit: www.smartstream-stp.com
+</p><p>   
+© 2019 Business Wire, Inc.
+
+Disclaimer:
+This material is not an AFP editorial material, and AFP shall not bear responsibility for the accuracy of its content. In case you have any questions about the content, kindly refer to the contact person/entity mentioned in the text of the release.</p><p class="credit">AFP</p></xmlText><xmlFormatRef><keyVal>XHTML</keyVal></xmlFormatRef></story></xml></log>

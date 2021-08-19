@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<appSettings>
+
+  <!-- Database connection -->
+
+  <!-- Database server -->
+  <add key="Db.Server" value="SBXGN4DB01" />
+
+  <!-- Database user -->
+  <add key="Db.User" value="sa" />
+
+  <!-- Database password -->
+  <add key="Db.Pwd" value="S@mng007#DBA" />
+
+  <!-- Database name -->
+  <add key="Db.Name" value="GN4_SBX" />
+  <add key="Db.AlertsName" value="GN4alerts"/>
+  
+  <!-- Pattern of the Database connection string -->
+  <add key="Db.OleDbInitString" value="" />
+
+  <!-- Time-out for the execution of database (SQL) commands - in hh:mm:ss format -->
+  <add key="Db.CommandTimeout" value="00:00:30" />
+
+  <!--
+       The instance name is used to compose the name of the Windows event log used by the system
+       and the name of the Back4 service. Having different instance name allow separate systems
+       to be installed on the same server.
+  -->
+  <add key="Db.Instance" value="" />
+
+  <!-- Full-text engine type installed -->
+  <!--
+  <add key="Db.FullTextEngine" value="ExaleadV5" />
+  -->
+
+  <!-- Encrypted encryption pass phrase used to generate the cryptographic key needed to transfer encrypted data to/from the server -->
+  <!--
+  <add key="Db.PassPhraseBytes" value="AQAA.....==" />
+  -->
+
+  <!-- Name of the application which is installing the database and which will catch the logs events -->
+  <!--
+  <add key="Db.InstallerName" value="GNHost" />
+  -->
+
+  <!-- Log files directory -->
+  <add key="Db.LogDir" value="C:\Tera\GN4\Logs" />
+
+  <!--
+       Log files splitting rule.
+       The syntax of the string should be, for example: 2d, 3w, 45Mb, 1h.
+       where h=hour, d=day, w=week, m=month and mb = megabyte.
+       0 value means no split at all.
+  -->
+  <add key="Db.LogSplit" value="1d" />
+
+  <!--
+       Events to be logged.
+       There is a Main log file and auxiliary log files (containing XML data resulting from XSL
+       transformation, import/export operations, etc.).
+
+       Possible values are:
+
+       'None'
+         Special 'no event' value
+
+       'ObjectComputeErr' (Auxiliary log)
+         Logs the XML input and output for the XSL transformation used for the automatic computation
+         of an object attributes when an error occurs (either XSL transformation error or object import error).
+
+       'ObjectCompute' (Auxiliary log)
+         Logs the XML input and output for the XSL transformation used for the automatic computation
+         of an object attributes
+
+       'ObjUIComputeErr' (Auxiliary log)
+         Logs the XML input and output for the XSL transformation used for the initialization
+         and automatic computation of object attributes in a form when an error occurs
+         (either XSL transformation error or object import error)
+
+       'ObjUICompute' (Auxiliary log)
+         Logs the XML input and output for the XSL transformation used for the initialization
+         and automatic computation of object attributes in a form
+
+       'ImportExportErr' (Auxiliary log)
+         Logs data about errors occuring while executing XML import and export
+         (e.g. the XML input for an XSL transformation that fails)
+
+       'Sql' (Main log)
+         Logs the SQL command
+
+       'Login' (Main log)
+         Logs the login/logout/startup/shutdown events
+
+       'PublishAutoFill' (Auxiliary log)
+         Logs the XML input and output for the XSL transformation used for the auto-fill of publishing destinations
+
+       'PublishAutoFillErr' (Auxiliary log)
+         Logs data about errors occuring while executing the XSL transformation used
+         for the auto-fill of publishing destinations
+
+       'Workflow' (Auxiliary log)
+         Logs the XML input and output for the XSL transformation used during a workflow execution
+
+       'WorkflowErr' (Auxiliary log)
+         Logs data about errors occuring while executing the XSL transformation used during a workflow execution
+
+       'Exalead' (Main log)
+         Logs data about Exalead index operations
+
+       'PublishValidateObject' (Auxiliary log)
+         Logs the XML input and output for the XSL transformation used for validating published object
+
+       'PublishValidateObjectErr' (Auxiliary log)
+         Logs data about errors occuring while executing the XSL transformation used for validating published object
+
+       'ObjectValidationErr'
+         Logs data about errors occuring while executing the XSL transformation used for the validation of an object
+
+       'ObjectValidation'
+         Logs the XML input and output for the XSL transformation used for the validation of an object
+
+       'ObjectInitErr'
+         Logs data about errors occuring while executing the XSL transformation used for the init of an object
+    
+       'ObjectInit'
+         Logs the XML input and output for the XSL transformation used for the init of an object
+    
+       'ServerCache'
+         Logs the ServerCache actions
+
+       'Triggers'
+         Logs the triggers operations
+
+       'Alerts'
+         Logs the alerts operations
+
+       'CodeWorkflowCompilation'
+         Compilation of code workflow
+
+       'CodeWorkflowCompilationErr'
+         Compilation of code workflow resulting in errors
+
+       'SqlFullText'
+         Logs the SQL full text command
+
+       'GNQuery'
+         Logs the search XPath of GNQuery
+
+       'DebugLogin'
+         Internal log of the login operations (only for debug purpose)
+
+       'Main'
+         Events logged into the main log file: composition of 'Sql' and 'Login'
+
+       'Errors'
+         All error events: composition of 'ObjectComputeErr','ObjUIComputeErr','ImportExportErr', 'PublishAutoFillErr',
+        'LogEvent.WorkflowErr', 'PublishValidateObjectErr', 'ObjectValidationErr', 'ObjectInitErr' and 'CodeWorkflowCompilationErr'.
+
+       'All'
+         All events
+
+       More parameters can be specified together at the same time as a comma-separated string.
+       For example, to log all the XML resulting from a XSL transformation we have to set LogEvents
+       to ‘ObjectCompute, ObjectUICompute’.
+       If the LogEvents key is missing, then the default logged events are: ‘Main, Errors’.
+       To disable GN4 logging: simply remove or comment the LogFileName key.
+       To disable the main log file, but keeping the auxiliary files creation:
+         - specify the LogFileName key.
+         - specify the LogEvents key without any event logged in the main log file (that is without 'Sql' and 'Login')
+
+  -->
+  <add key="Db.LogEvents" value="Errors" />
+
+  <!-- Enables or not the use of the Windows event log -->
+  <add key="Db.EventViewer" value="true"/>
+
+  <!--
+    Radius Server Configuration
+
+      RadiusServer.Enabled:
+        true if users must be authenticated against the configured radius server, or
+        false if they must be authenticated using the credentials stored in the GN4 database.
+        When set to false, the other RadiusServer.XXX parameters are ignored.
+        Default: false
+
+      RadiusServer.IP:
+        IP address of the radius server ; it must be a dotted IP address format (no DNS)
+        No default
+
+      RadiusServer.Port:
+        Radius server port number
+        Default: 11812
+
+      RadiusServer.SharedSecret:
+        Radius shared secret
+        No default
+
+      RadiusServer.Attributes:
+        Authentication request attributes, must be in the form:
+          code1:type1:value1|code2:type2:value2|code3:type3:value3...
+        No default
+
+      RadiusServer.LogEnabled:
+        Indicates whether or not log must be produced.
+        When set to trye, the log is appended to the file 'radcas.log', which must be placed
+        in the same folder than the COM 'radauth.dll' file.
+        Default: true
+  -->
+  <add key="RadiusServer.Enabled" value="false" />
+  <!--
+  <add key="RadiusServer.IP" value="127.0.0.1" />
+  <add key="RadiusServer.Port" value="11812" />
+  <add key="RadiusServer.SharedSecret" value="our_secret" />
+  <add key="RadiusServer.Attributes" value="" />
+  <add key="RadiusServer.LogEnabled" value="true" />
+  -->
+
+  <!--
+    Web.AppName: used as the base name to load configuration objects (e.g. gnpc_config,gnpc_WebParts_XXX, etc.)
+    Default: 'gnpc'.
+  -->
+  <!--<add key="Web.AppName" value="gnpc" />-->
+
+  <!--
+    Web.AppendDirToAppName: If 'true' and the application path has a sub-directory (i.e.
+    it is in the form /dir/subdir) the sub-directory name is appended to
+    the application name. It is a simple way to have multiple applications
+    pointing to the same database and sharing the same code.
+    For example if you define http://localhost/GN4/Int and AppendDirToAppName is 'true', configurations named
+    gnpcInt_XXX will be used.
+    Default: 'true'.
+  -->
+  <!--<add key="Web.AppendDirToAppName" value="true" />-->
+
+  <!--
+    Web.RootsToAppendToAppName: Specify the list of root(separated by ';' or ' ') for which append the name to the application name.
+    (i.e. if the application path is in the form /dir, force the add of 'dir' to the application name).
+    For example set value to "/Int;" to make this path http://localhost/Int using the gnpcInt_XXX configurations
+    instead of the default (gnpc_XXX) ones.
+    Default: empty.
+  -->
+  <!--<add key="Web.RootsToAppendToAppName" value="" />-->
+
+
+  <!-- Volumes -->
+
+  <!-- Default volumes root URL -->
+  <add key="Db.RootVolumeUrl" value="\\SBXGN4DB01\GN4Volumes" />
+
+  <!-- Default UI language of the application -->
+  <add key="UI.Language" value="en-US"/>
+
+  <!-- Plugins configuration -->
+  <add key="Plugins.Parse" value="ParseArchive; ParseImg; ParseMultimedia; ParseAPDFL; ParseOffice; ParseCalendar; ParseText;" />
+  <add key="Plugins.Convert" value="ParseImg; ParseMultimedia; ParseAPDFL; ParseOffice; ParseCalendar; ParseText;" />
+  <add key="Plugins.Extract" value="ParseArchive; ParseAPDFL;" />
+
+  <add key="ParseMultimedia.PreviewTilePixel" value="50"/>
+  <add key="ParseImg.ThumbnailSize" value="200"/>
+  <add key="ParseImg.PreviewSize" value="400"/>
+  <add key="PreviewSize" value="500"/>
+
+  <!-- Url to redirect to when connecting from a mobile device -->
+  <add key="Mobile.RedirectUrl" value="http://localhost/GN4/Mobile/"/>
+  
+  <!-- Necessary to import CMYK pictures into Tark -->
+  <add key="ParseAPDFL.DefaultCMYKProfile" value="wscRGB.cdmp"/> 
+
+</appSettings>

@@ -1,0 +1,7 @@
+﻿<opt:XmlExportOptions
+  xmlns:opt="http://www.teradp.com/schemas/GN4/1/XmlExportOptions.xsd"
+
+  AccessStrict="false"
+  MimeType="text/html" RefKeys="true"
+    DataFiles="true"
+  DataMaxSize="1" />

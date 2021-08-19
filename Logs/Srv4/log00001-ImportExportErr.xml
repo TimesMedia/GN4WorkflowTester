@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?><log event="ImportExportErr" loginGuid="4acd984c-b902-41bd-b506-44db4ac9b28a" userId="4" userName="Administrator" xmlns="http://www.teradp.com/schemas/GN4/1/Log.xsd"><description>XML export: input for the associated XSL transformation</description><error code="254" name="ExportTransformError">Error applying the XML export XSL transformation: 'Object reference not set to an instance of an object.' (ERR0254)</error><xml><article nav:objectType="article" id="obj6987231" name="281119SPselections" modifiedDate="2019-11-28T09:03:19.837Z" sentDate="2019-11-28T09:03:19.837Z" creationDate="2019-11-28T08:38:59.557Z" folderKind="editorial" rating="0" bodyTextH="241376" bodyNParas="9" bodyNLines="23" bodyNWords="109" bodyNChars="616" duration="37" xmlns="urn:schemas-teradp-com:gn4tera" xmlns:nav="http://www.teradp.com/schemas/GN4/1/ObjNav.xsd"><nav:objectTypeAttrs mediaType="Complex" deadlineGap="0" textElement="" textAttrib="" typeKind="" typeLink="" /><nav:creation /><nav:modified /><nav:referencing><nav:referencingBy attrName="objGroup.objs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="txt.inlineObjs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="pubDest.objs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="pubDest.preObjs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="task.products"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="crops.containerRef"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="article.related"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="extDoc.articles"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="layer.inlineObjs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="webComment.objectRef"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="bulletin.objs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="mediaGallery.objs"><nav:refs handle="1" /></nav:referencingBy></nav:referencing><folderRef idref="obj311561"><nav:refObject idref="obj311561" /></folderRef><creatorRef idref="obj1425104"><nav:refObject idref="obj1425104" /></creatorRef><modifierRef idref="obj1425104"><nav:refObject idref="obj1425104" /></modifierRef><senderRef idref="obj1425104"><nav:refObject idref="obj1425104" /></senderRef><variants nav:handle="1" /><externals nav:handle="1" /><title></title><keywords nav:handle="1" /><cats nav:handle="1" /><aCats nav:handle="1" /><catsList></catsList><summary></summary><pubInfo nav:handle="1" /><isPublished>false</isPublished><pageLayers nav:handle="1" /><linked>BD 25/12/2019 01BD2511MainBody 19 Sport AL BD_Mainbody</linked><lockLevel>0</lockLevel><assigns nav:handle="1" /><assigned></assigned><isLinked>true</isLinked><sourceId></sourceId><sourceFileName></sourceFileName><txts nav:handle="1"><body nav:objectType="body" id="obj6987232" name="281119SPselections_14307" modifiedDate="2019-11-28T09:03:19.837Z" sentDate="2019-11-28T09:03:19.837Z" creationDate="2019-11-28T08:38:59.557Z" folderKind="editorial" rating="0" size="1724" textH="241376" counted="true" nParas="9" nLines="23" nWords="109" nChars="616"><nav:objectTypeAttrs mediaType="Text" deadlineGap="0" textElement="" textAttrib="" typeKind="body" typeLink=""><description>Body</description></nav:objectTypeAttrs><nav:creation /><nav:modified /><nav:referencing><nav:parentBy attrName="article.txts"><nav:refs handle="1" /></nav:parentBy><nav:referencingBy attrName="objGroup.objs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="txt.inlineObjs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="pubDest.objs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="pubDest.preObjs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="task.products"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="crops.containerRef"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="article.related"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="layer.inlineObjs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="extDocJumpPart.txtRef"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="txtGeometry.txtRef"><nav:refs handle="1"><nav:refObject idref="obj6988016"><txtGeometry nav:objectType="txtGeometry" id="obj6988016" name="281119SPselections_14307" modifiedDate="2019-11-28T08:42:30.503Z" justified="true" textH="241376" overH="-124" textOverN="0" overfullLines="0" nNoFitParas="0"><nav:objectTypeAttrs mediaType="None" deadlineGap="0" textElement="" textAttrib="" typeKind="" typeLink="" /><nav:creation /><nav:modified /><nav:referencing><nav:referencingBy attrName="pubDest.objs" /><nav:referencingBy attrName="pubDest.preObjs" /><nav:referencingBy attrName="pageLayer.txtGeos" /></nav:referencing><txtRef idref="obj6987232"><nav:refObject idref="obj6987232" /></txtRef><regionRef idref="obj312105"><nav:refObject idref="obj312105" /></regionRef><folderRef idref="obj311561"><nav:refObject idref="obj311561" /></folderRef><contextRef idref="obj6743642"><nav:refObject idref="obj6743642" /></contextRef><data /><localGeometry /><jumps nav:handle="1" /></txtGeometry></nav:refObject></nav:refs></nav:referencingBy><nav:referencingBy attrName="webComment.objectRef"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="bulletin.objs"><nav:refs handle="1" /></nav:referencingBy><nav:referencingBy attrName="mediaGallery.objs"><nav:refs handle="1" /></nav:referencingBy></nav:referencing><folderRef idref="obj311561"><nav:refObject idref="obj311561" /></folderRef><creatorRef idref="obj1425104"><nav:refObject idref="obj1425104" /></creatorRef><modifierRef idref="obj1425104"><nav:refObject idref="obj1425104" /></modifierRef><senderRef idref="obj1425104"><nav:refObject idref="obj1425104" /></senderRef><variants nav:handle="1" /><externals nav:handle="1" /><title></title><keywords nav:handle="1" /><cats nav:handle="1" /><aCats nav:handle="1" /><catsList></catsList><summary></summary><pubInfo nav:handle="1" /><isPublished>false</isPublished><pageLayers nav:handle="1" /><linked>BD 25/12/2019 01BD2511MainBody 19 Sport AL BD_Mainbody</linked><lockLevel>0</lockLevel><assigns nav:handle="1" /><assigned></assigned><isLinked>true</isLinked><sourceId></sourceId><sourceFileName></sourceFileName><tText xml:space="preserve"><t:t xml:space="preserve" xmlns:t="http://www.teradp.com/schemas/GN3/t.xsd">
+            <t:p area="true">
+              <t:tag n="turfhd" />Vaal selections            </t:p>
+            <t:p>
+              <t:tag n="turfbody" />1st Race:<t:tag n="res" /> (16) Abia (4) Doublethink <t:el />(12) Orphelin Noir (10) Iron Duke</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />2nd Race:<t:tag n="res" /> (16) Western Vision (1) <t:el />Allez Les Bleu (4) Tartan Dancer <t:el />(6) Constantia</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />3rd Race: <t:tag n="res" />(5) Urban Rock (7) <t:el />Ftzwilliam (8) Sporting Monarch <t:el />(12) Greasepaint</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />4th Race: <t:tag n="res" />(8) Gemcutter (15) <t:el />Sweet Trial (16) What A Joker (9) <t:el />Eastern Healer</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />5th Race: <t:tag n="res" />(7) Frosted Steel (4) <t:el />Green Top (6) Stage Dance (1) <t:el />Cordillera</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />6th Race:<t:tag n="res" /> (1) Miss Khalifa (3) Lady <t:el />Lexington (13) Kisumu (15) Cosmic <t:el />Mist</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />7th Race:<t:tag n="res" /> (6) Alramz (2) Mythical <t:el />Bolt (4) Prince Of Venice (3) Ring <t:el />Of Fire</t:p>
+            <t:p />
+            <t:p>
+              <t:tag n="turfbody" />8th Race:<t:tag n="res" /> (8) Fife (2) At Hand (3) <t:el />Knight Owl (1) Zeal And Zest</t:p>
+            <t:p />
+            <t:p />
+          </t:t></tText><contextRef idref="obj6743642"><nav:refObject idref="obj6743642" /></contextRef><inlineObjs nav:handle="1" /><notes></notes><sectionColor>colorSport</sectionColor><sectionHead>headSport</sectionHead></body></txts><plainText>
+              Vaal selections            
+
+              1st Race: (16) Abia (4) Doublethink (12) Orphelin Noir (10) Iron Duke
+
+
+              2nd Race: (16) Western Vision (1) Allez Les Bleu (4) Tartan Dancer (6) Constantia
+
+
+              3rd Race: (5) Urban Rock (7) Ftzwilliam (8) Sporting Monarch (12) Greasepaint
+
+
+              4th Race: (8) Gemcutter (15) Sweet Trial (16) What A Joker (9) Eastern Healer
+
+
+              5th Race: (7) Frosted Steel (4) Green Top (6) Stage Dance (1) Cordillera
+
+
+              6th Race: (1) Miss Khalifa (3) Lady Lexington (13) Kisumu (15) Cosmic Mist
+
+
+              7th Race: (6) Alramz (2) Mythical Bolt (4) Prince Of Venice (3) Ring Of Fire
+
+
+              8th Race: (8) Fife (2) At Hand (3) Knight Owl (1) Zeal And Zest
+
+
+</plainText><related nav:handle="1" /><contentPosition nav:handle="1" /><authors></authors><instructions></instructions><credit></credit><orgSource></orgSource><location></location><city></city><state></state><country></country><position /><notes></notes><nImgs>0</nImgs><headline></headline></article></xml></log>

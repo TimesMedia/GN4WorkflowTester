@@ -1,0 +1,24 @@
+GN4 archive title BD 
+---------------------------------------------------- 
+Archive todays Edition of Title BD                   
+---------------------------------------------------- 
+Srv4 version 2.6.3775.9
+GN4 Server Configuration Utility
+Copyright c 2006 - 2018 Miles 33
+Language en-US
+
+Search for today edition . done
+Executing Log 'log message' . done
+Executing ExecuteSequentialWorkflow 'archiving' 
+  Check that input and parameters are correct . done
+  Executing TransformXml 'readParameters' . done
+  Searching pages with the specified workstate . done
+  Executing Log 'logNoPages' . done
+  Searching documents with the specified workstate . done
+  Executing Log 'logNoExtDocs' . done
+. done
+Executed workflow 'archiveToday'
+<INFO> Found edition (id: 1615172)
+<WARNING> There are no pages with workstate '13_Archive'
+<WARNING> There are no documents with workstate '13_Archive'
+.. 

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Mimes xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.teradp.com/schemas/GN4/1/Mimes.xsd">
+  <MimeDesc Id="1" Mime="image/png" Extension="png" MacType="" />
+  <MimeDesc Id="2" Mime="application/octet-stream" Extension="" MacType="" />
+  <MimeDesc Id="3" Mime="text/plain" Extension="txt" MacType="TEXT" />
+  <MimeDesc Id="4" Mime="application/xml" Extension="xml" MacType="TEXT" />
+  <MimeDesc Id="5" Mime="image" Extension="" MacType="" />
+  <MimeDesc Id="6" Mime="application/zip" Extension="zip" MacType="ZIP_" />
+  <MimeDesc Id="7" Mime="font/pfm" Extension="" MacType="" />
+  <MimeDesc Id="8" Mime="font/pfb" Extension="" MacType="" />
+  <MimeDesc Id="9" Mime="font/ttf" Extension="ttf" MacType="" />
+  <MimeDesc Id="10" Mime="font/otf" Extension="" MacType="" />
+  <MimeDesc Id="11" Mime="image/gif" Extension="gif" MacType="GIFf" />
+  <MimeDesc Id="12" Mime="application/postscript" Extension="ps" MacType="" />
+  <MimeDesc Id="13" Mime="image/pdf" Extension="pdf" MacType="" />
+  <MimeDesc Id="14" Mime="image/jpeg" Extension="jpg" MacType="JPEG" />
+  <MimeDesc Id="15" Mime="video/mpeg4" Extension="mp4" MacType="mpg4" />
+  <MimeDesc Id="16" Mime="image/x-eps" Extension="eps" MacType="" />
+  <MimeDesc Id="17" Mime="image/tiff" Extension="tif" MacType="TIFF" />
+  <MimeDesc Id="18" Mime="image/bmp" Extension="bmp" MacType="" />
+  <MimeDesc Id="19" Mime="image/vdn.adobe.photoshop" Extension="psd" MacType="" />
+  <MimeDesc Id="20" Mime="text" Extension="" MacType="" />
+  <MimeDesc Id="21" Mime="application/pdf" Extension="pdf" MacType="" />
+</Mimes>

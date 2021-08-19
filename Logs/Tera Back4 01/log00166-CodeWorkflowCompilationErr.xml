@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="utf-8"?><log event="CodeWorkflowCompilationErr" loginGuid="baaae845-5bc4-4aea-8eb0-5d4575ea9edb" userId="4" userName="Administrator" xmlns="http://www.teradp.com/schemas/GN4/1/Log.xsd"><description>Error compiling workflow 'Beacon' loaded from object with id 1912</description><error code="1043" name="WFCompilationErrors">Error BC30456: 'Ignore' is not a member of 'TeraDP.GN4.Editorial.PageAd'., Error BC30456: 'Ignore' is not a member of 'TeraDP.GN4.Editorial.PageAd'. (ERR1043)</error><xml><sourceCode xmlns="">Option Explicit On
+Option Strict On
+Option Compare Binary
+Option Infer On
+
+Imports Microsoft.VisualBasic
+Imports System
+Imports System.Collections
+Imports System.Collections.Generic
+Imports System.Diagnostics
+Imports System.Linq
+Imports System.Threading.Tasks
+Imports System.Xml
+Imports System.Xml.Linq
+Imports System.Xml.XPath
+Imports System.Xml.Xsl
+Imports TeraDP.GN4.Server
+Imports TeraDP.GN4.Server.CodeActivity
+Imports TeraDP.GN4.Common
+Imports TeraDP.GN4.Editorial
+Imports TeraDP.GN4.EditorialServer
+Imports System.IO
+Imports System.Net
+Imports System.Text
+Imports System.Globalization
+
+Public Class SequentialWorkflow
+  Private Context As SequentialExecutionContext
+  Private Utils As TeraDP.GN4.Workflow.WFUtils
+  Private Sub New(ByVal aContext As SequentialExecutionContext)
+    Context = aContext
+    Utils = New TeraDP.GN4.Workflow.WFUtils(aContext)
+  End Sub
+  Public Shared Sub __Execute(ByVal aContext As SequentialExecutionContext)
+    Dim wf As New SequentialWorkflow(aContext)
+    wf.__Do()
+  End Sub
+
+'global objects
+Dim IAds As EdtAdsImportSrv = Nothing
+Dim FullLogPath As String = String.Format("c:\temp\{0}_beaconLog.txt", DateTime.UtcNow.ToString("yyyyMMdd_hhmmss"))
+
+'prepare a list Edition logical page (using the beaconId) before the import operation, 
+'it will be used for add or remove that pages form "islogical" status before the import
+Public Overridable Function PrepareLogicalPages(ByRef activeDoc As EdtDoc, ByRef maxlogical As Short) As List(Of String)
+  Dim edtLogicalList As List(Of String) = New List(Of String)
+  Dim edtPageList As List(Of EdtPage) = activeDoc.Pages()
+
+  LogFile(String.Format("Preparing logical pages: processing {0} pages", edtPageList.Count))
+  maxlogical = 0
+  For Each edtPage In edtPageList
+    If (edtPage.logicalPageAttr) Then
+      maxlogical = edtPage.numberAttr
+      LogFile(String.Format("Add page with external id {0}", edtPage.externalUniqueIdAttr))
+      edtLogicalList.Add(edtPage.externalUniqueIdAttr)
+    Else
+      edtPage.logicalPageAttr = True
+    End If
+  Next
+  LogFile(String.Format("Maximum logical page number: {0}", maxlogical))
+  Return edtLogicalList
+End Function
+
+'just load the pages from activedoc and set into Iads object
+Protected Function FillIAdsFromActiveDocPages(ByVal activeDoc As EdtDoc, ByRef IAds As EdtAdsImportSrv) As Boolean
+  Dim page As AdsPage
+  Dim pageMasterType As String = "$A" ' automatic assignement
+  Dim edtPageList As List(Of EdtPage) = activeDoc.Pages() 'import only ad. use the pre-existent edition pages
+  For Each edtPage In edtPageList
+    If (Not edtPage.logicalPageAttr) Then
+      Dim curTitle = activeDoc.GetTitle().GetId()
+      Dim sectName = NameBuilder.EmptyName, zoneName = NameBuilder.EmptyName, workName As String = Nothing, bookName = NameBuilder.EmptyName
+      Dim sectObj = activeDoc.GetAppGlobal().GetSection(edtPage.sectionRefAttr, curTitle)
+      If (sectObj IsNot Nothing) Then
+        sectName = sectObj.nameAttr
+      End If
+      Dim zoneObj = activeDoc.GetAppGlobal().GetZone(edtPage.zoneRefAttr, curTitle)
+      If (zoneObj IsNot Nothing) Then
+        zoneName = zoneObj.nameAttr
+      End If
+      Dim workObj = activeDoc.GetAppGlobal().GetWorkstate(edtPage.workstateRefAttr)
+      If (workObj IsNot Nothing) Then
+        workName = workObj.nameAttr
+      End If
+      Dim bookObj = activeDoc.GetAppGlobal().GetBook(edtPage.bookRefAttr, curTitle)
+      If (bookObj IsNot Nothing) Then
+        bookName = bookObj.nameAttr
+      End If
+
+      Dim isDouble = False
+      Dim masterW = 0
+      Dim masterObj As EdtMaster = activeDoc.m_Masters.Find(Function(mast) (mast.idAttr = edtPage.masterRefAttr))
+      If (masterObj IsNot Nothing) Then
+        masterW = masterObj.widthAttr
+        If (masterObj.masterTypeAttr = TeraDP.GN4.Schema.Class.masterObj.masterTypeEnum.DoubleVal) Then
+          isDouble = True
+        End If
+      End If
+
+      Dim extId As String = edtPage.idAttr.ToString()
+      If (Not String.IsNullOrEmpty(edtPage.externalUniqueIdAttr)) Then
+        extId = edtPage.externalUniqueIdAttr
+      End If
+
+      page = IAds.AddPage()
+      With page
+        .Number = edtPage.numberAttr
+        .PageType = pageMasterType
+        .Section = sectName
+        .Zone = zoneName
+        .Book = bookName
+        .Workstate = workName
+        .IsLogical = False
+        .ExtUniqueId = extId
+        .ExtSectionNumber = edtPage.externalSectionNumberAttr
+        .ExtrPrintNumber = edtPage.externalPrintableNumberAttr
+        .Geometry.twoSidesAttr = isDouble
+        .Geometry.pageWidthAttr = masterW
+      End With
+    End If
+  Next
+  Return True
+End Function
+
+Protected Sub FillValuesFromPageDoc(ByVal beaconPageId As String, ByVal activeDoc As EdtDoc,
+                                    ByRef pageSection As String, ByRef pageZone As String, ByRef pageBook As String, ByRef pageWorkstate As String,
+                                    ByRef Number As Short, ByRef ExtSectionNumber As Short, ByRef ExtPrintNumber As Short)
+  Dim originalPage = activeDoc.FindPage(beaconPageId)
+  If (originalPage IsNot Nothing) Then
+    Dim curTitle = activeDoc.GetTitle().GetId()
+    Dim sectObj = activeDoc.GetAppGlobal().GetSection(originalPage.sectionRefAttr, curTitle)
+    If (sectObj IsNot Nothing) Then
+      pageSection = sectObj.nameAttr
+    End If
+    Dim zoneObj = activeDoc.GetAppGlobal().GetZone(originalPage.zoneRefAttr, curTitle)
+    If (zoneObj IsNot Nothing) Then
+      pageZone = zoneObj.nameAttr
+    End If
+    Dim workObj = activeDoc.GetAppGlobal().GetWorkstate(originalPage.workstateRefAttr)
+    If (workObj IsNot Nothing) Then
+      pageWorkstate = workObj.nameAttr
+    End If
+    Dim bookObj = activeDoc.GetAppGlobal().GetBook(originalPage.bookRefAttr, curTitle)
+    If (bookObj IsNot Nothing) Then
+      pageBook = bookObj.nameAttr
+    End If
+
+    Number = originalPage.numberAttr
+
+    ExtSectionNumber = originalPage.externalSectionNumberAttr
+    ExtPrintNumber = originalPage.externalPrintableNumberAttr
+  End If
+End Sub
+
+'read the XML, create the pages to import (import from beacon syntax)
+Public Overridable Function AddPagesFromXML(ByVal root As XmlNode, ByRef IAds As EdtAdsImportSrv, ByRef msgRes As String) As Boolean
+  Dim page As AdsPage
+  Dim beaconPage, planPage, masterPageNode, workstateNode As XmlNode
+  Dim SectionMatch As Boolean = IAds.SectionMode
+  Dim DescriptionMatch As Boolean = IAds.SetDescription
+  Dim MasterMatch As Boolean = IAds.AssignMaster
+  Dim WorkstateMatch As Boolean = IAds.AssignWorkstate
+  Dim DefWorkstate As String = Nothing
+  Dim pageMasterType As String = "$A" ' automatic assignement
+
+  LogFile("Adding pages from xml...")
+
+  If (WorkstateMatch And Not String.IsNullOrEmpty(IAds.DefaultWorkstate)) Then
+    DefWorkstate = IAds.DefaultWorkstate
+  End If
+
+  If (IAds.AdMode = 0) Then
+    Return FillIAdsFromActiveDocPages(IAds.GetDoc(), IAds)
+  End If
+
+  planPage = root.SelectSingleNode("descendant::planned_pages")
+  If (IsNothing(planPage)) Then
+    msgRes = EdtAdsImportSrv.GetString("IDS_NoPages")
+    Return False
+  End If
+  Dim pageList As XmlNodeList = planPage.ChildNodes
+  If (IsNothing(pageList)) Then
+    msgRes = EdtAdsImportSrv.GetString("IDS_NoPages")
+    Return False
+  End If
+
+  Dim warningMaster As String = Nothing
+
+  For Each beaconPage In pageList
+	If (beaconPage.NodeType = XmlNodeType.Comment) Then
+      Continue For
+    End If
+    Dim pageNumNode, pageSectionNode, beaconPageIdNode, pageGroupNode, pageNumInSectionNode, pageNumInPrintNode As XmlNode
+    Dim pageNum = "", pageNumInSection = "0", pageNumInPrint = "0"
+
+    Dim beaconPageId As String = ""
+    Dim pageSection = NameBuilder.EmptyName
+    Dim pageZone = NameBuilder.EmptyName
+    Dim pageBook = NameBuilder.EmptyName
+    Dim pageDesc As String = Nothing
+    Dim pageWorkstate = DefWorkstate
+    Dim Number As Short
+    Dim ExtSectionNumber As Short
+    Dim ExtPrintNumber As Short
+    Dim bAddPage = True
+    Dim pageWidth = 0
+    Dim doublePage = False
+    Dim pageMasterTypetmp = pageMasterType
+
+    'firsto to read: the page id
+    beaconPageIdNode = beaconPage.SelectSingleNode("descendant::planned_page_id")
+    If (IsNothing(beaconPageIdNode)) Then
+      msgRes += String.Format(TeraDP.GN4.Editorial.PublicEditorialRes.IDS_NoPlannedPageId, pageNum) + vbCrLf
+      Continue For
+    Else
+      beaconPageId = beaconPageIdNode.InnerText
+    End If
+
+    FillValuesFromPageDoc(beaconPageId, IAds.GetDoc(), pageSection, pageZone, pageBook, pageWorkstate, Number, ExtSectionNumber, ExtPrintNumber)
+
+    Dim pageBookNode = beaconPage.SelectSingleNode("descendant::signature")
+    If pageBookNode Isnot Nothing
+      pageBook=pageBookNode.InnerText
+    End If
+
+    pageNumNode = beaconPage.SelectSingleNode("descendant::page")
+    If (IsNothing(pageNumNode)) Then
+      msgRes += TeraDP.GN4.Editorial.PublicEditorialRes.IDS_NoPageNode + vbCrLf
+      Continue For
+    Else
+      pageNum = pageNumNode.InnerText
+    End If
+
+    pageSectionNode = beaconPage.SelectSingleNode("descendant::section")
+    If Not (IsNothing(pageSectionNode)) Then 'no error, is set a defualt for sections
+      If (SectionMatch) Then ' BeaconSection should match with GN4 section or GN4 zone?
+        pageSection = pageSectionNode.InnerText
+      Else
+        pageZone = pageSectionNode.InnerText
+      End If
+    End If
+
+    pageGroupNode = beaconPage.SelectSingleNode("descendant::page_group_name")
+    If Not (IsNothing(pageGroupNode)) Then 'no error, is set a default for sections
+      If (Not SectionMatch) Then ' page_group_name should match with GN4 section?
+        pageSection = pageGroupNode.InnerText
+      ElseIf DescriptionMatch Then ' page_group_name should match with GN4 description?
+        pageDesc = pageGroupNode.InnerText
+      End If
+    End If
+
+    pageNumInSectionNode = beaconPage.SelectSingleNode("descendant::page_in_section")
+    If Not (IsNothing(pageNumInSectionNode)) Then 'no error, ignored if section number is missing
+      Dim tmpStr As String = pageNumInSectionNode.InnerText
+      pageNumInSection = If(IsNumeric(tmpStr.Substring(0, 1)), tmpStr, tmpStr.Substring(1))
+    End If
+
+    pageNumInPrintNode = beaconPage.SelectSingleNode("descendant::printable_hash")
+    If Not (IsNothing(pageNumInPrintNode)) Then 'no error, ignored if print number is missing
+      pageNumInPrint = pageNumInPrintNode.InnerText
+    End If
+
+    If (MasterMatch) Then
+      masterPageNode = beaconPage.SelectSingleNode("descendant::template")
+      If Not (IsNothing(masterPageNode)) Then
+        pageMasterTypetmp = masterPageNode.InnerText
+      Else
+        warningMaster += String.Format(TeraDP.GN4.Editorial.PublicEditorialRes.IDS_NoMaster, pageNum) + vbCrLf
+      End If
+    End If
+
+    If (WorkstateMatch) Then
+      workstateNode = beaconPage.SelectSingleNode("descendant::page_status")
+      If Not (IsNothing(workstateNode)) Then
+        pageWorkstate = workstateNode.InnerText
+      End If
+    End If
+
+    Try
+      Number = CShort(If(IsNumeric(pageNum.Substring(0, 1)), pageNum, pageNum.Substring(1)))
+      ExtSectionNumber = CShort(pageNumInSection)
+      ExtPrintNumber = CShort(pageNumInPrint)
+    Catch ex As Exception
+      msgRes = ex.Message
+      Return False
+    End Try
+
+    Dim IsDoublePage As Boolean? = IAds.GetDoc().IsDoublePage(Number, pageSection, pageZone, pageBook, pageWidth)
+    If (IsDoublePage Is Nothing) Then
+      If (Number &gt; 2 And (Number Mod 2 &gt; 0)) Then ' doublepage check 1 (for pages)
+        ' if the original page doesn't exist can be part of the previous page, if this page is double
+        ' in this case do not add the page
+        IsDoublePage = IAds.GetDoc().IsRightPage(Number, pageSection, pageZone, pageBook, pageWidth)
+
+        If (IsDoublePage IsNot Nothing AndAlso IsDoublePage.Value = True) Then
+          bAddPage = False 'do not add, this page is the right part of number-1 page
+        End If
+      End If
+    Else
+      doublePage = IsDoublePage.Value
+      If (IsDoublePage.Value) Then
+        pageMasterTypetmp = "$D"
+      End If
+    End If
+
+    If (bAddPage) Then
+      page = IAds.AddPage()
+      With page
+        .Number = Number
+        .PageType = pageMasterTypetmp
+        .Section = pageSection
+        .Zone = pageZone
+        .Book = pageBook
+        .Workstate = pageWorkstate
+        .IsLogical = False
+        .ExtUniqueId = beaconPageId
+        .ExtSectionNumber = ExtSectionNumber
+        .ExtrPrintNumber = ExtPrintNumber
+        .Geometry.twoSidesAttr = doublePage
+        .Geometry.pageWidthAttr = pageWidth
+      End With
+
+      Dim singlePage As String = "single"
+      If doublePage Then
+        singlePage = "double"
+      End If
+      LogFile(String.Format("Add page - number: {0}, type: '{1}', section: '{2}', zone: '{3}', book: '{4}', workstate: '{5}', beacon id: '{6}', ext section number: {7}, ex print number: {8}, {9}, width: {10}",
+        page.Number, page.PageType, page.Section, page.Zone, page.Book, page.Workstate, page.ExtUniqueId, page.ExtSectionNumber, page.ExtrPrintNumber, singlePage, page.Geometry.pageWidthAttr))
+
+      If (pageDesc IsNot Nothing) Then
+        page.Description = pageDesc
+      End If
+    End If
+  Next
+
+  If (warningMaster IsNot Nothing) Then
+    msgRes = warningMaster
+  End If
+  Return True
+End Function
+
+Protected Function BeaconPlanList(ByVal root As XmlNode, ByRef IAds As EdtAdsImportSrv, ByRef msgRes As String, ByVal xmlNodeName As String, ByRef reserved As Boolean) As Integer
+  Dim beaconRect, planNode As XmlNode
+  Dim planChild As XmlNodeList
+  Dim assignedCurAd = False
+  Dim numAssignement As Integer = 0
+
+  LogFile(String.Format("Beacon Plan List: '{0}'...", xmlNodeName))
+
+  planNode = root.SelectSingleNode(xmlNodeName)
+  If (IsNothing(planNode)) Then
+    Return numAssignement
+  End If
+  planChild = planNode.ChildNodes
+
+  If Not (IsNothing(planChild)) Then
+    For Each beaconRect In planChild
+      If (beaconRect.NodeType = XmlNodeType.Comment) Then
+        Continue For
+      End If
+      Dim curMsg As String = String.Empty
+      If (PlanBeaconShape(beaconRect, IAds, curMsg, assignedCurAd, reserved)) Then
+        If (assignedCurAd) Then
+          numAssignement += 1
+        End If
+      ElseIf (Not String.IsNullOrEmpty(curMsg)) Then
+        msgRes += curMsg + vbCrLf
+      End If
+    Next
+  End If
+  Return numAssignement
+End Function
+  
+'set the valud string value for beacon parsing ("number cm")
+' to use only with number values
+Sub AddCmString(ByRef value As String)
+  If (Not String.IsNullOrEmpty(value)) Then
+    If (Not value.Contains(" cm")) Then
+      If (Not value.Contains("cm")) Then
+        value += " cm"
+      Else
+        ' we assume the "cm" string need to be replaced by " cm" string
+        value = value.Replace("cm", " cm")
+      End If
+    End If
+  Else
+    value = "0 cm"
+  End If
+End Sub
+
+Function PlanBeaconShape(ByVal beaconRect As XmlNode,
+                        ByRef IAds As EdtAdsImportSrv,
+                        ByRef msgRes As String,
+                        ByRef assigned As Boolean,
+                        ByRef reserved As Boolean) As Boolean
+
+  Dim page As AdsPage
+  Dim ad As PageAd
+
+  Dim pageNumInSection As Integer
+  Dim pageNumInSectionNode, AdSectionNode, AdCodeNode, AdClientNode, AdWNode, AdHNode, AdYNode, AdXNode, AdBookNode As XmlNode
+  Dim AdX = "", AdY = "", AdW = "", AdH = ""
+  Dim AdSection = "", AdZone = "", AdDesc = "", AdCode = "", AdClient = "", AdBook = ""
+  Dim AdIgnore = False
+  assigned = False
+
+  AdCodeNode = beaconRect.SelectSingleNode("descendant::collect_for_output_name")
+  If (IsNothing(AdCodeNode)) Then
+    AdCodeNode = beaconRect.SelectSingleNode("descendant::urn") 'compatibility for old beacon versions
+    If (IsNothing(AdCodeNode)) Then
+      AdCodeNode = beaconRect.SelectSingleNode("descendant::identifier")
+    End If
+  End If
+  If (IsNothing(AdCodeNode)) Then
+    AdCode = beaconRect.Attributes.GetNamedItem("id").InnerText
+  Else
+    AdCode = AdCodeNode.InnerText
+  End If
+
+  pageNumInSectionNode = beaconRect.SelectSingleNode("descendant::page")
+  If (IsNothing(pageNumInSectionNode)) Then
+    msgRes = String.Format(EdtAdsImportSrv.GetString("IDS_Rectangle"), AdCode, "no page")
+    GoTo parse_error
+  Else
+    Dim tmpStr As String = pageNumInSectionNode.InnerText
+    pageNumInSection = CInt(If(IsNumeric(tmpStr.Substring(0, 1)), tmpStr, tmpStr.Substring(1)))
+  End If
+
+  AdSectionNode = beaconRect.SelectSingleNode("descendant::section")
+  If Not (IsNothing(AdSectionNode)) Then ' missing sections: set default
+    AdSection = AdSectionNode.InnerText
+  End If
+
+  AdBookNode = beaconRect.SelectSingleNode("descendant::signature")
+  If Not (IsNothing(AdBookNode)) Then ' missing book: set default
+    AdBook = AdBookNode.InnerText
+  End If
+
+  AdClientNode = beaconRect.SelectSingleNode("descendant::customer")
+  If (IsNothing(AdClientNode)) Then
+    AdClient = "No Customer Listed"
+  Else
+    AdClient = AdClientNode.InnerText
+  End If
+
+  AdDesc = "Beacon Advert. URN: " + AdCode + " Customer: " + AdClient
+
+  AdWNode = NodeAttrValue(beaconRect, "descendant::width", "value")
+  If (IsNothing(AdWNode)) Then
+    msgRes = String.Format(EdtAdsImportSrv.GetString("IDS_Rectangle"), AdCode, "no width")
+    GoTo parse_error
+  Else
+    AdW = AdWNode.InnerText + " cm"
+    AddCmString(AdW)
+  End If
+
+  AdHNode = NodeAttrValue(beaconRect, "descendant::depth", "value")
+  If (IsNothing(AdHNode)) Then
+    msgRes = String.Format(EdtAdsImportSrv.GetString("IDS_Rectangle"), AdCode, "no depth")
+    GoTo parse_error
+  Else
+    AdH = AdHNode.InnerText + " cm"
+    AddCmString(AdH)
+  End If
+
+  AdXNode = NodeAttrValue(beaconRect, "descendant::left_output", "value")
+  If (IsNothing(AdXNode)) Then
+    AdXNode = beaconRect.SelectSingleNode("descendant::left_output")
+    If (IsNothing(AdXNode)) Then
+      msgRes = String.Format(EdtAdsImportSrv.GetString("IDS_Rectangle"), AdCode, "no left_output")
+      GoTo parse_error
+    Else
+      AdX = AdXNode.InnerText
+    End If
+  Else
+    AdX = AdXNode.InnerText + " cm"
+    AddCmString(AdX)
+  End If
+
+  AdYNode = NodeAttrValue(beaconRect, "descendant::bottom_output", "value")
+  If (IsNothing(AdYNode)) Then
+    AdYNode = beaconRect.SelectSingleNode("descendant::bottom_output")
+    If (IsNothing(AdYNode)) Then
+      msgRes = String.Format(EdtAdsImportSrv.GetString("IDS_Rectangle"), AdCode, "no bottom_output")
+      GoTo parse_error
+    Else
+      AdY = AdYNode.InnerText
+    End If
+  Else
+    AdY = AdYNode.InnerText + " cm"
+    AddCmString(AdY)
+  End If
+
+  ' load the gn4ignore attribute, if set to TRUE it means it should keep the existing position in page (for TISO)
+  If (Not IsNothing(beaconRect.Attributes) AndAlso Not IsNothing(beaconRect.Attributes.GetNamedItem("gn4ignore"))) Then
+    Dim ignore As String = beaconRect.Attributes.GetNamedItem("gn4ignore").InnerText
+    AdIgnore = ignore.ToLower = "true"
+  End If
+  
+  If (Not (IAds.SectionMode)) Then
+    AdZone = AdSection
+    AdSectionNode = beaconRect.SelectSingleNode("descendant::page_group_name")
+    If (IsNothing(AdSectionNode)) Then
+      AdSection = ""
+    Else
+      AdSection = AdSectionNode.InnerText
+    End If
+  End If
+
+  ' Stupid Beacon, can write NaN in the files!!!!
+  If Left(AdX, 3) = "NaN" Then AdX = "0" + Right(AdX, Len(AdX) - 3)
+  If Left(AdY, 3) = "NaN" Then AdY = "0" + Right(AdY, Len(AdY) - 3)
+
+  LogFile(String.Format("Look for page - number: {0}, section: '{1}', zone: '{2}', book: '{3}'", pageNumInSection, AdSection, AdZone, AdBook))
+
+  page = IAds.FindPage(pageNumInSection, AdSection, AdZone, AdBook)
+  If (page Is Nothing) Then
+    LogFile(String.Format("Cannot find page - number: {0}, section: '{1}', zone: '{2}', book: {3}", pageNumInSection, AdSection, AdZone, AdBook))
+
+    If (pageNumInSection &gt; 2 And (pageNumInSection Mod 2 &gt; 0)) Then '' doublepage check 1 (for ADS)
+      ' if the original page doesn't exist can be part of the previous page, if this page is double
+      ' in this case add the ad into previus page
+      page = IAds.FindLeftPage(pageNumInSection, AdSection, AdZone, AdBook)
+      If (page Is Nothing OrElse page.Geometry.twoSidesAttr = False) Then
+        LogFile(String.Format("Cannot find left page - number: {0}, section: '{1}', zone: '{2}', book: {3}", pageNumInSection, AdSection, AdZone, AdBook))
+        Return True ' no page no action: ignore ad
+      Else
+        ad = page.AddAd()
+        With (ad)
+          .Name = AdCode
+          .Description = AdDesc
+          .W = ManEdMis(IAds, AdW)
+          .WColumns = False
+          .H = ManEdMis(IAds, AdH)
+          .HModules = False
+          .X = ManEdMis(IAds, AdX) + CInt(page.Geometry.pageWidthAttr / 2)
+          .XColumns = False
+          .XRight = False
+          .Y = ManEdMis(IAds, AdY)
+          .YModules = False
+          .YBottom = True
+          .Reserved = reserved
+          .Ignore = AdIgnore
+        End With
+        LogFile(String.Format("Add ads - name: '{0}', descr: '{1}', w: {2}, h: {3}, x: {4}, y: {5}", ad.Name, ad.Description, ad.W, ad.H, ad.X, ad.Y))
+        assigned = True
+        Return True
+      End If
+    Else
+      Return True ' no page no action: ignore ad
+    End If
+  End If
+
+  ad = page.AddAd()
+  With (ad)
+    .Name = AdCode
+    .Description = AdDesc
+    .W = ManEdMis(IAds, AdW)
+    .WColumns = False
+    .H = ManEdMis(IAds, AdH)
+    .HModules = False
+    .X = ManEdMis(IAds, AdX)
+    .XColumns = False
+    .XRight = False
+    .Y = ManEdMis(IAds, AdY)
+    .YModules = False
+    .YBottom = True
+    .Reserved = reserved
+    .Ignore = AdIgnore
+  End With
+  LogFile(String.Format("Add ads - name: '{0}', descr: '{1}', w: {2}, h: {3}, x: {4}, y: {5}", ad.Name, ad.Description, ad.W, ad.H, ad.X, ad.Y))
+  assigned = True
+  Return True
+
+parse_error:
+  Return False
+
+End Function
+
+'read the XML, create the ADS to import (import from beacon syntax)
+Public Overridable Function AddAdsFromXML(ByVal root As XmlNode, ByRef IAds As EdtAdsImportSrv, ByRef msgRes As String) As Boolean
+  Dim numAssignement As Integer = 0
+
+  LogFile("Adding ads from xml...")
+
+  numAssignement += BeaconPlanList(root, IAds, msgRes, "descendant::planned_adverts", False)
+  numAssignement += BeaconPlanList(root, IAds, msgRes, "descendant::planned_fillers", False)
+  numAssignement += BeaconPlanList(root, IAds, msgRes, "descendant::planned_headers", False)
+  numAssignement += BeaconPlanList(root, IAds, msgRes, "descendant::planned_template_boxes", False)
+  numAssignement += BeaconPlanList(root, IAds, msgRes, "descendant::planned_reserved", True)
+
+  If (IAds.AdMode = 0 And numAssignement = 0) Then ' import ads with no assigned ads? message warning
+    msgRes = EdtAdsImportSrv.GetString("IDS_NoAdsAssignement")
+    Return False
+  End If
+
+  If (Not String.IsNullOrEmpty(msgRes)) Then
+    Return False
+  End If
+
+  Return True
+End Function
+
+Function NodeAttrValue(ByRef node As XmlNode, ByVal nodeVal As String, ByVal itemVal As String) As XmlNode
+  Dim singNode As XmlNode = node.SelectSingleNode(nodeVal)
+
+  If (IsNothing(singNode)) Then Return Nothing
+  If (IsNothing(singNode.Attributes)) Then Return Nothing
+
+  Return singNode.Attributes.GetNamedItem(itemVal)
+End Function
+
+Function ManEdMis(ByRef IAds As EdtAdsImportSrv, ByVal str As String) As Integer
+  Dim len = str.Length
+  If (len &lt; 2) Then Return Integer.MinValue
+
+  Dim u = IAds.GetEdUnits()
+
+  If str.EndsWith("""") Then
+    str = str.Remove(len - 1, 1)
+    Dim dbl = Convert.ToDouble(str, System.Globalization.CultureInfo.InvariantCulture)
+    Return u.MisToMPt(dbl, "in")
+  End If
+
+  Dim unit = str.Substring(len - 2, 2)
+  Dim value = Convert.ToDouble(str.Substring(0, len - 2), System.Globalization.CultureInfo.InvariantCulture)
+
+  If unit = "cm" Then Return u.MisToMPt(value, "cm")
+  If unit = "mm" Then Return u.MisToMPt(value, "mm")
+  If unit = "al" Then  ' agate lines (14al = 1in)
+    Dim v = value / 14.0
+    Return u.MisToMPt(v, "in")
+  End If
+  If unit = "ci" Then Return u.MisToMPt(value, "cc")
+  If unit = "pt" Then  ' points (72pt = 1in)
+    Dim v = value / 72.0
+    Return u.MisToMPt(v, "in")
+  End If
+
+  ' try picas in USA notation: 1p6
+  Dim P = str.IndexOf("p")
+  If P &gt;= 0 Then
+    Dim vfs = Convert.ToDouble(str.Substring(0, P), System.Globalization.CultureInfo.InvariantCulture)
+    Dim vfpts = Convert.ToDouble(str.Substring(P + 1), System.Globalization.CultureInfo.InvariantCulture)
+    Dim vf = vfs / 6.0
+    Dim vfpt = vfpts / 72.0
+    Return u.MisToMPt(vf + vfpt, "in")
+  End If
+
+  Return Integer.MinValue
+End Function
+
+'change the "isLogical" status after the beacon import
+Public Overridable Sub SetLogicalPagesPostImport(ByRef activeDoc As EdtDoc, ByRef maxlogical As Short, ByVal edtLogicalList As List(Of String))
+  LogFile("Setting logical pages post import...")
+  Dim edtPageList As List(Of EdtPage) = activeDoc.Pages()
+  For Each edtPage In edtPageList
+    If (edtPage.logicalPageAttr) Then
+      If (Not edtLogicalList.Contains(edtPage.externalUniqueIdAttr)) Then
+        maxlogical = CShort(maxlogical + 1)
+        edtPage.State.SetModified()
+      End If
+    End If
+  Next
+End Sub
+
+'only for debug purpose: write on file
+Sub LogFile(text As String)
+  LogFile(text, False)
+End Sub
+
+'only for debug purpose: write on file
+Sub LogFile(text As String, withDate As Boolean)
+  If String.IsNullOrEmpty(text) Then
+    Return 'nothing to do
+  End If
+  If withDate Then
+    text = "##### " + " [" + TeraDP.GN4.Common.XmlUtility.DateTimeToString(DateTime.Now) + "]" + System.Environment.NewLine + text + System.Environment.NewLine
+  End If
+  Try 
+    IAds.LogFile(text)
+  Catch ex As Exception
+    'maybe the code is not updated: let's write the text in the old way
+    File.AppendAllText(FullLogPath, text)
+  End Try
+End Sub
+
+Sub LogInfo(message As String)
+  LogMessage(message, TeraDP.GN4.Workflow.LogEntry.LogCode.Info)
+End Sub
+
+Sub LogWarning(message As String)
+  LogMessage(message, TeraDP.GN4.Workflow.LogEntry.LogCode.Warning)
+End Sub
+
+Sub LogError(message As String)
+  LogMessage(message, TeraDP.GN4.Workflow.LogEntry.LogCode.Error)
+End Sub
+
+Sub LogMessage(message As String, code As TeraDP.GN4.Workflow.LogEntry.LogCode)
+  If String.IsNullOrEmpty(message) Then Return 'nothing to do
+
+  Dim logAct As Log = New Log(Context) With {.Name = "log message"}
+  logAct.Code = code
+  logAct.Message = message
+  Dim logRes As LogResult = logAct.Do()
+
+  LogFile(String.Format("[{0}] {1}", code, message))
+End Sub
+  Private Sub __Do()
+
+'check input parameters
+Dim DEBUG As Boolean = Context.ParValueAsBool("debug", False)
+Const LogSeparator As String = "----------"
+
+Dim msgResult As String = Nothing
+'initialize Editorial classes
+Dim units As TeraDP.GN4.Common.EdUnits = TeraDP.GN4.EditorialServer.EditorialUtil.GetEdUnits(Context)
+
+For Each aData As TeraDP.GN4.Workflow.IActivityData In Context.Data
+  Try
+    Dim loadXmlAct As LoadXml = New LoadXml(Context) With {.Name = "loadXml", .Description = "Load the xml file in memory"}
+    loadXmlAct.Data = aData
+    Dim loadXmlRes As LoadXmlResult = loadXmlAct.Do()
+
+    Dim xDoc As Xml.XmlDocument = New XmlDocument()
+    Using read As XmlReader = loadXmlRes.XmlOut.CreateReader()
+      xDoc.Load(read)
+    End Using
+    Dim root As XmlNode = xDoc.DocumentElement
+
+    IAds = New EdtAdsImportSrv(Context, Context.WFLogin.Schema)
+    Dim adP As String = Context.ParValue("adParams")
+
+    If DEBUG Then
+      Try
+        IAds.LogPath = FullLogPath 'enable the log file
+      Catch ex As Exception
+        'continue with no error
+      End Try
+      LogFile("Started Beacon import", True)
+      LogFile(String.Format("Using the following parameters: '{0}'", adP))
+    End If
+
+    IAds.PopulateFromString(adP)
+
+    Try
+      Dim titleNode = root.SelectSingleNode("descendant::product_title_name")
+      Dim dateNode = root.SelectSingleNode("descendant::cover_date")
+      Dim nameNode = root.SelectSingleNode("descendant::product_name")
+      Dim templateNameNode = root.SelectSingleNode("descendant::product_code")
+      Dim edNumberNode = root.SelectSingleNode("descendant::edition_number")
+      Dim titleName = "", editionDateName = "", editionName = "", editionNumberName = "-", editionTemplateName = "" ' default
+
+      If (dateNode IsNot Nothing) Then
+        editionDateName = dateNode.InnerText
+      End If
+
+      If (templateNameNode IsNot Nothing) Then
+        editionTemplateName = templateNameNode.InnerText
+      End If
+
+      If (edNumberNode IsNot Nothing) Then
+        editionNumberName = edNumberNode.InnerText
+      End If
+
+      If (titleNode Is Nothing Or nameNode Is Nothing) Then
+        LogError("No title or edition name")
+        Continue For
+      ElseIf (String.IsNullOrEmpty(titleNode.InnerText) Or String.IsNullOrEmpty(nameNode.InnerText)) Then
+        LogError("title or edition name cannot be empty")
+        Continue For
+      Else
+        titleName = titleNode.InnerText
+        editionName = nameNode.InnerText
+      End If
+
+      Dim madeByTemplate As Boolean = False
+
+      If DEBUG Then LogFile(String.Format("Open edition - editionName: '{0}', editionDateName: '{1}', titleName: '{2}', editionNumberName: '{3}', editionTemplateName: '{4}'",
+        editionName, editionDateName, titleName, editionNumberName, editionTemplateName))
+
+      If (IAds.OpenEdition(editionName, editionDateName, titleName, editionNumberName, editionTemplateName, madeByTemplate)) Then
+        LogError(IAds.GetErrMsgs())
+        Continue For
+      End If
+
+      If (IAds.AdMode = 0 And IAds.GetDoc().Pages().Count = 0) Then 'first check: import ads, but there is no pages on edition
+        msgResult = EdtAdsImportSrv.GetString("IDS_NoEdPagesForAds")
+        GoTo parse_error
+      ElseIf (IAds.AdMode = 0 And Not (IAds.GetDoc().HasAdsLayers())) Then 'second check: to import ads are necessary the ads layers
+        msgResult = EdtAdsImportSrv.GetString("IDS_NoAdsLayers")
+        GoTo parse_error
+      ElseIf (IAds.AdMode = 1 And Not (IAds.EdtConf().HasAdsLayersAsDefault())) Then 'third check: import page and ads, but there is no ads layers when new pages are created
+        msgResult = EdtAdsImportSrv.GetString("IDS_NoAdsInConf")
+        GoTo parse_error
+        'ElseIf (IAds.AdMode = 1 And IAds.GetDoc().Pages().Count &gt; 0) Then 'fourth check: just a warning: pre existent pages not used in the assignement vill be set as logical
+        'If MsgBox("EdtAdsImportSrv.GetString("IDS_WarnLogicalPages"), vbYesNo, ApplicationBase.Current.ApplicationName) &lt;&gt; vbYes Then Exit Sub
+      End If
+
+      LogFile("Check out all.")
+      If (IAds.CheckOutAll(True) &lt;&gt; 0) Then
+        LogError(IAds.GetErrMsgs())
+        GoTo parse_error
+      End If
+
+      Dim maxlogical As Short = 0
+      Dim edtLogicalList As List(Of String) = New List(Of String)()
+      ' logical pages are created only if importing pages, if importing only ads this is not necessary
+      If IAds.AdMode &lt;&gt; 0 AndAlso Not madeByTemplate Then
+        edtLogicalList = PrepareLogicalPages(IAds.GetDoc(), maxlogical)
+        LogFile(LogSeparator)
+      End If
+
+      If (Not AddPagesFromXML(root, IAds, msgResult)) Then
+        If (Not String.IsNullOrEmpty(msgResult)) Then GoTo parse_error
+      End If
+      LogFile(LogSeparator)
+
+      If (Not AddAdsFromXML(root, IAds, msgResult)) Then
+        If (Not String.IsNullOrEmpty(msgResult)) Then GoTo parse_error
+      End If
+      LogFile(LogSeparator)
+
+      If (madeByTemplate) Then
+        IAds.AssignUniqueIdToTemplatePages()
+      End If
+      LogFile(LogSeparator)
+
+      xDoc = Nothing
+      IAds.MakeAds()
+
+      If Not edtLogicalList Is Nothing Then
+        SetLogicalPagesPostImport(IAds.GetDoc(), maxlogical, edtLogicalList)
+      End If
+          
+      If (madeByTemplate) Then ' remove all remiaing unused logical pages
+        IAds.RemoveAllLogicalPages()
+      End If
+          
+      If (IAds.Save() &lt;&gt; 0) Then
+        LogError(IAds.GetErrMsgs())
+      Else
+        LogWarning(IAds.GetErrMsgs())
+      End If
+    Catch ex As Exception
+      LogError(ex.Message)
+    Finally
+      If (IAds.GetDoc() IsNot Nothing) Then
+        IAds.GetDoc().CloseEdition()
+      End If
+    End Try
+  Catch ex As System.IO.FileNotFoundException
+    LogError(EdtAdsImportSrv.GetString("IDS_XMLExists"))
+  End Try
+
+parse_error:
+  If (Not String.IsNullOrEmpty(msgResult)) Then
+    LogError(msgResult)
+  End If
+Next
+If DEBUG Then
+  LogFile(String.Format("{0}End Beacon import", System.Environment.NewLine), True)
+End If
+  End Sub
+End Class
+</sourceCode></xml></log>

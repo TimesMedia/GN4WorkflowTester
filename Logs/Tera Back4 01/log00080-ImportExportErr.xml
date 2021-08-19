@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?><log event="ImportExportErr" loginGuid="9c7de57a-900f-4017-88f9-f22381dd6854" userId="2018248" userName="avusa\pklgn4bck" xmlns="http://www.teradp.com/schemas/GN4/1/Log.xsd"><description>XML import: object(s) input</description><error code="257" name="ImportError">Error importing XML: 'User avusa\pklgn4bck does not have permission to create story in folder '/Wires/AFP_Texts' (id: 1788) (ERR1330)' (ERR0257)</error><xml><story name="4c3d6249-19ca-4907-b289-7c4a574f9386" priority="medium" xmlns:gn4="urn:schemas-teradp-com:gn4tera" xmlns:lc="http://www.teradp.com/schemas/GN4/1/LoginContext.xsd" xmlns:oc="http://www.teradp.com/schemas/GN4/1/OperationContext.xsd" xmlns:nav="http://www.teradp.com/schemas/GN4/1/ObjNav.xsd" xmlns:fn="http://www.teradp.com/schemas/GN4/1/Xslt" xmlns:edfn="http://www.teradp.com/schemas/GN4/1/EditorialXslt" xmlns=""><rights><ref><keyVal>AFP</keyVal></ref></rights><sourceRef><keyVal>AFP</keyVal></sourceRef><sourceId>urn:newsml:afp.com:20190925T074116Z:TX-PAR-EJG06:1</sourceId><followId>urn:newsml:afp.com:20190925T074116Z:TX-PAR-EJG06:1</followId><sourceFileName>afp.com-20190925T074100Z-TX-PAR-EJG06.xml</sourceFileName><keywords><item>Software</item><item>Internet</item><item>Data Management</item><item>Technology</item><item>Online Retail</item><item>Retail</item><item>China</item><item>Asia Pacific</item><item>PRESS-RELEASE-BUSINESS-WIRE</item></keywords><folderRef><keyVal>/Wires/AFP_Texts</keyVal></folderRef><title>Press Release from Business Wire: Alibaba Cloud</title><authors></authors><summary>   
+Alibaba Cloud, the data intelligence backbone of Alibaba Group, today showcased the success of its customers who have made use of Alibaba Cloud's technologies to ramp up innovation. A range of customers from various industries, which have benefited from Alibaba Cloud's technology and the interconnectivity with the other business units of the Alibaba Group, gathered at the China Gateway Summit during the Apsara conference to share their journey to success.
+   
+By partnering with Alibaba...</summary><city>HANGZHOU</city><xmlText><p>   
+Alibaba Cloud, the data intelligence backbone of Alibaba Group, today showcased the success of its customers who have made use of Alibaba Cloud's technologies to ramp up innovation. A range of customers from various industries, which have benefited from Alibaba Cloud's technology and the interconnectivity with the other business units of the Alibaba Group, gathered at the China Gateway Summit during the Apsara conference to share their journey to success.
+</p><p>   
+By partnering with Alibaba Cloud, customers including Canon, Refinitiv and The Trade Desk, are able to access proven technologies such as data analytics, networking and artificial intelligence to develop innovative solutions that meet their industry demands in China. These ultimately become a significant part of their global innovation.
+</p><p>   
+Among the new participants, The Trade Desk, an industry leading independent, objective ad-buying platform, will use Alibaba Cloud to meet the needs for high volume, high concurrency and low latency services across the region.
+</p><p>   
+"With the world's largest emerging middle class, China represents a significant opportunity for advertisers globally," said Calvin Chan, General Manager of the Trade Desk China. "The Trade Desk? helps the world's leading brands optimize their advertising campaigns in China. When we launched in China, and now as we scale, we needed the right cloud partner for our unique data-driven platform. Alibaba Cloud helps us meet the specific needs of advertisers accessing the China market, and going forward, the growing number of Chinese companies looking to access new markets around the world."
+</p><p>   
+In a further initiative, total imaging solution provider Canon is establishing a holistic digital operation model from front-end e-commerce platform to back-end data analysis in order to improve user experience through technology.
+</p><p>   
+"Nowadays, innovation is happening everywhere in the China market, and Alibaba Cloud has become one of the most important platforms to support business-driven innovation, especially that based on the Internet," said Ehara Taisei, Vice President of Canon (China). "Since establishment, Canon has been a pioneer of business and technology innovation. Together with Alibaba Cloud, we have redefined the concept of printing, online-offline integration, and digital marketing in order to provide the next level of experience and value to our customers in China. In the foreseeable future, we will work even closer with Alibaba Cloud on big data and precision marketing to create more value for our customers in China and all over the world."
+</p><p>   
+As one of the world's largest financial markets data and infrastructure providers, Refinitiv is also working with Alibaba Cloud to bring its financial solutions to financial institutions globally.
+</p><p>   
+"In partnership with Alibaba Cloud, Refinitiv is exploring how to bring our world-class products and content to customers globally, and new market solutions to get users prepared for emerging opportunities," said Nicole Chen, Managing Director, Refinitiv Greater China.
+</p><p>   
+Alibaba Cloud also runs the China Gateway Program which has helped global customers from countries including Australia, Singapore, Korea, Japan, Israel, Sweden, France, Germany, and the United States to get up and running in China, playing a vital role in assisting businesses scale up in one of the world's biggest markets.
+</p><p>   
+Selina Yuan, President of Alibaba Cloud Intelligence International said, "With Alibaba Cloud's powerful technologies, business-oriented industry solutions and in-depth knowledge of the market, we would like to support more customers to innovate in China and transfer their successes to other parts of the world. We are happy to see an increasing number of customers who innovate with us, and accelerate their global digitalization process with that success."
+</p><p>   
+The China Gateway Program, which was first launched in Australia in March 2019, pledges to help overseas businesses succeed in the Chinese market by providing them with help such as customized market insights, business connections, case studies, and technology solutions. The China Gateway Program currently serves customers from more than 80 countries and regions.
+</p><p>   
+For details of Alibaba Cloud's China Gateway Program please visit: https://www.alibabacloud.com/china-gateway
+</p><p>   About Alibaba Cloud
+</p><p>   
+Established in 2009, Alibaba Cloud (www.alibabacloud.com), the data intelligence backbone of Alibaba Group, is among the world's top three IaaS providers, according to Gartner. It is also the largest provider of public cloud services in China, according to IDC. Alibaba Cloud provides a comprehensive suite of cloud computing services to businesses worldwide, including merchants doing business on Alibaba Group marketplaces, start-ups, corporations and public services. Alibaba Cloud is the official Cloud Services Partner of the International Olympic Committee.
+</p><p></p><p>   View source version on businesswire.com: https://www.businesswire.com/news/home/20190925005325/en/</p><p></p><p>   Contact</p><p>   
+Claudia JU
+ +86 571 8656 1860
+ Claudia.ju@alibaba-inc.com
+</p><p>   
+© 2019 Business Wire, Inc.
+
+Disclaimer:
+This material is not an AFP editorial material, and AFP shall not bear responsibility for the accuracy of its content. In case you have any questions about the content, kindly refer to the contact person/entity mentioned in the text of the release.</p><p class="credit">AFP</p></xmlText><xmlFormatRef><keyVal>XHTML</keyVal></xmlFormatRef></story></xml></log>

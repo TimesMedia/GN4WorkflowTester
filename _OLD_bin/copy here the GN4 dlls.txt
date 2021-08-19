@@ -1,0 +1,11 @@
+Miles33/Tera DP
+
+Workflow Tester application
+
+To use the WorkflowTester application you have to copy into the .\bin folder the GN4 dlls.
+You can get the GN4bin_64.zip from 
+  http://tech.teradp.com/tech/download/gnportal/rel22/GN4bin_64.zip
+and expand it into the .\bin folder
+
+Don't forget to set your data into the ..\appSettings.xml file too.
+The documentation about the WorkflowTester application is the ..\CodeWorkflow.docx file.

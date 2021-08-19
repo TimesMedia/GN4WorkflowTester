@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?><log event="ImportExportErr" loginGuid="9c7de57a-900f-4017-88f9-f22381dd6854" userId="2018248" userName="avusa\pklgn4bck" xmlns="http://www.teradp.com/schemas/GN4/1/Log.xsd"><description>XML import: object(s) input</description><error code="257" name="ImportError">Error importing XML: 'User avusa\pklgn4bck does not have permission to create story in folder '/Wires/AFP_Texts' (id: 1788) (ERR1330)' (ERR0257)</error><xml><story name="8c3f250a-1779-4b96-8273-d3fc83d21fd8" priority="medium" xmlns:gn4="urn:schemas-teradp-com:gn4tera" xmlns:lc="http://www.teradp.com/schemas/GN4/1/LoginContext.xsd" xmlns:oc="http://www.teradp.com/schemas/GN4/1/OperationContext.xsd" xmlns:nav="http://www.teradp.com/schemas/GN4/1/ObjNav.xsd" xmlns:fn="http://www.teradp.com/schemas/GN4/1/Xslt" xmlns:edfn="http://www.teradp.com/schemas/GN4/1/EditorialXslt" xmlns=""><rights><ref><keyVal>AFP</keyVal></ref></rights><sourceRef><keyVal>AFP</keyVal></sourceRef><sourceId>urn:newsml:afp.com:20190925T080020Z:TX-PAR-EJG39:1</sourceId><followId>urn:newsml:afp.com:20190925T080020Z:TX-PAR-EJG39:1</followId><sourceFileName>afp.com-20190925T080000Z-TX-PAR-EJG39.xml</sourceFileName><keywords><item>Oregon</item><item>Networks</item><item>Internet</item><item>Data Management</item><item>Technology</item><item>Europe</item><item>United States</item><item>North America</item><item>PRESS-RELEASE-BUSINESS-WIRE</item></keywords><folderRef><keyVal>/Wires/AFP_Texts</keyVal></folderRef><title>Press Release from Business Wire: Airship</title><authors></authors><summary>   
+Customer engagement company Airship today unveiled its new EU cloud site and revealed several new strategic milestones that contributed to a record-breaking quarter led by EMEA. In 2019, Airship has grown its global professional services organization by 5x, expanded its integrations with marketing clouds and data platforms, and introduced new functionality that makes it easier to localize messages to international audiences and automate messages within multi-step journeys.
+   
+Following...</summary><city>PORTLAND</city><xmlText><p>   
+Customer engagement company Airship today unveiled its new EU cloud site and revealed several new strategic milestones that contributed to a record-breaking quarter led by EMEA. In 2019, Airship has grown its global professional services organization by 5x, expanded its integrations with marketing clouds and data platforms, and introduced new functionality that makes it easier to localize messages to international audiences and automate messages within multi-step journeys.
+</p><p>   
+Following the early 2019 acquisition of its largest European competitor, Accengage, Airship is now opening its EU cloud site - a separate but virtually identical instance of its high-performance U.S. production environment. The new cloud site is built on Google Cloud Platform (GCP) data centers located in the EU. The Airship Customer Engagement Platform helps brands meet GDPR compliance standards, and is certified to the EU-US Privacy Shield and accepts EU Standard Contractual Clauses, enabling European customers to use its U.S. cloud site - but now all new European customers will automatically have all Airship data and systems located within the EU. This summer, Airship also opened an office in Munich, joining offices in Paris and London, to bring industry-leading scale, expertise and resources delivered through more than 100 employees to customers throughout Europe. In addition, particularly for pricing flexibility in Europe, Airship is now partnered with multiple Tier 1 SMS aggregators.
+</p><p>   
+"TICTRAC is the personalised health and wellness platform that enables many of the largest healthcare providers and insurers to help their customers lead healthier lives, whilst reducing costs and improving retention and cross-selling," said Saagar Bains, head of product, TICTRAC. "Lasting engagement is paramount, and in Airship we found best-in-class capabilities to welcome, engage and motivate users across apps and email, and the expert services to ensure success for our clients. Having all of Airship's data and systems reside in the EU is icing on the cake."
+</p><p>   
+Recently, Airship expanded on its dozens of pre-built integrations that help customers maximize use of real-time data, multi-channel orchestration and predictive AI across their martech stacks. With more than 180 apps streaming Airship's real-time user-level data into AWS and GCP for analysis and storage, Airship now has a pre-built integration for Microsoft Azure Event Hub. Airship has also broadened integrations with customer data platforms including mParticle and Segment to facilitate bi-directional data exchange across customers' stacks. Its deep integration with Salesforce Journey Builder, now allows Airship customers to view overlays of Airship's Performance Analytics and use Airship SMS, in addition to its app and web messaging, directly within Journey Builder's UI. For Adobe Campaign, Airship has created pre-defined professional service packages to help companies integrate best-of-breed mobile capabilities into their on-premise instances.
+</p><p>   
+"We are on a singular mission to help businesses around the world create end-to-end digital experiences that grow customer loyalty and lifetime value," said Brett Caine, CEO and president, Airship. "As we work to make the best engagement platform even better, we'll maximize the value our business customers receive with a relentless focus on simplicity, open integrations, deep industry and regional expertise and new innovations to help marketers grow and retain customers."
+</p><p>   
+Recently, among 18 vendors, Airship was positioned highest in its ability to execute and furthest for its completeness of vision in Gartner, Inc.'s 2019 Magic Quadrant for Mobile Marketing Platforms. This followed receiving the highest product scores in three of four Use Cases (as Urban Airship) in Gartner's 2018 Critical Capabilities for Mobile Marketing Platforms.
+</p><p>   
+For additional information on Airship's solutions download:
+</p><p>   -- Gartner "Magic Quadrant for Mobile Marketing Platforms" by Mike McGuire, Charles Golvin, July 15, 2019</p><p>   -- Gartner "Critical Capabilities for Mobile Marketing Platforms" by Charles S. Golvin, Mike McGuire, Bryan Yeager, October 30, 2018</p><p>   Gartner Disclosure
+</p><p>   Gartner does not endorse any vendor, product or service depicted in its research publications, and does not advise technology users to select only those vendors with the highest ratings or other designation. Gartner research publications consist of the opinions of Gartner's research organization and should not be construed as statements of fact. Gartner disclaims all warranties, expressed or implied, with respect to this research, including any warranties of merchantability or fitness for a particular purpose.
+</p><p>   About Airship
+</p><p>   
+Marketing and digital experience teams at thousands of the world's most admired companies rely on Airship's Customer Engagement Platform to create deeper connections with customers by delivering incredibly relevant, coordinated messages across channels.
+</p><p>   
+Founded in 2009 as a pioneer in push notifications, Airship now gives brands the user-level data, engagement channels, AI orchestration and services they need to deliver push notifications, emails, SMS, in-app messages, mobile wallet cards and more to exactly the right person in exactly the right moment - building trust, boosting engagement, driving action and growing value.
+</p><p>   
+Learn more about our Customer Engagement Platform, read our blog or follow us on Twitter, LinkedIn, Facebook and Instagram.
+</p><p></p><p>   View source version on businesswire.com: https://www.businesswire.com/news/home/20190925005258/en/</p><p></p><p>   Contact</p><p>   
+North America:
+ Danielle Stickler
+ Bateman Group
+ +1 415-749-9124
+ airship@bateman-group.com
+</p><p>   
+Corey Gault
+ Airship
+ +1 503-206-9164
+ corey@airship.com
+</p><p>   
+EMEA:
+ Nina Meyer
+ Airship
+ +33 1 44 56 87 10
+ nina.meyer@airship.com
+</p><p>   
+UK:
+ Lucinda Layton
+ Hotwire UK
+ +44 20 7608 2500
+ Airship@hotwireglobal.com
+</p><p>   
+France:
+ Marion Fajgenbaum / Marine Cressot
+ Hotwire France
+ +33 14 312 55 68 / 69
+ AirshipFR@hotwireglobal.com
+</p><p>   
+Germany:
+ Julia da Silva Bastos
+ Hotwire Germany
+ +49 89 2620 81 89
+ airshipde@hotwireglobal.com
+</p><p>   
+© 2019 Business Wire, Inc.
+
+Disclaimer:
+This material is not an AFP editorial material, and AFP shall not bear responsibility for the accuracy of its content. In case you have any questions about the content, kindly refer to the contact person/entity mentioned in the text of the release.</p><p class="credit">AFP</p></xmlText><xmlFormatRef><keyVal>XHTML</keyVal></xmlFormatRef></story></xml></log>

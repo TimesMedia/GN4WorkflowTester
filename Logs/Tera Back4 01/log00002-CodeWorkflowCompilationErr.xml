@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?><log event="CodeWorkflowCompilationErr" loginGuid="19c6e9d8-3af3-43b5-97cb-1867226efee0" userId="4" userName="Administrator" xmlns="http://www.teradp.com/schemas/GN4/1/Log.xsd"><description>Error compiling workflow 'obj136698.importWF' loaded from object with id 136698</description><error code="1043" name="WFCompilationErrors">Warning BC40056: Namespace or type specified in the Imports 'Blackstar.GN4.Iress' doesn't contain any public member or cannot be found. Make sure the namespace or the type is defined and contains at least one public member. Make sure the imported element name doesn't use any aliases. Line:
+  Imports Blackstar.GN4.Iress
+, Error BC30648: String constants must end with a double quote. Line:
+          x += Body + "&lt;/t:t&gt;&lt;/tText&gt;&lt;/body&gt; &lt;/txts&gt; &lt;!-- set the APM position --&gt; &lt;contentPosition&gt;&lt;ref code=&lt;%= apmPos %&gt; &gt;
+, Error BC30203: Identifier expected. Line:
+  &lt;/article&gt;"
+, Error BC30057: Too many arguments to 'Public Function BuildXml(Body As String, folderPath As String, ArticleName As String) As System.Xml.Linq.XDocument'. Line:
+              Dim XmlArticle = BuildXml(Body, FolderPath, ArticleName, tmpAPMPos)
+ (ERR1043)</error><xml><sourceCode xmlns="">Option Explicit On
+Option Strict On
+Option Compare Binary
+Option Infer On
+
+Imports Microsoft.VisualBasic
+Imports System
+Imports System.Collections
+Imports System.Collections.Generic
+Imports System.Diagnostics
+Imports System.Linq
+Imports System.Threading.Tasks
+Imports System.Xml
+Imports System.Xml.Linq
+Imports System.Xml.XPath
+Imports System.Xml.Xsl
+Imports TeraDP.GN4.Server
+Imports TeraDP.GN4.Server.CodeActivity
+Imports Blackstar.GN4.Iress
+
+Public Class SequentialWorkflow
+  Private Context As SequentialExecutionContext
+  Private Utils As TeraDP.GN4.Workflow.WFUtils
+  Private Sub New(ByVal aContext As SequentialExecutionContext)
+    Context = aContext
+    Utils = New TeraDP.GN4.Workflow.WFUtils(aContext)
+  End Sub
+  Public Shared Sub __Execute(ByVal aContext As SequentialExecutionContext)
+    Dim wf As New SequentialWorkflow(aContext)
+    wf.__Do()
+  End Sub
+
+Sub LogInfo(message As String)
+        LogMessage(message, TeraDP.GN4.Workflow.LogEntry.LogCode.Info)
+    End Sub
+
+    Sub LogWarning(message As String)
+        LogMessage(message, TeraDP.GN4.Workflow.LogEntry.LogCode.Warning)
+    End Sub
+
+    Sub LogError(message As String)
+        LogMessage(message, TeraDP.GN4.Workflow.LogEntry.LogCode.Error)
+    End Sub
+
+    Sub LogMessage(message As String, code As TeraDP.GN4.Workflow.LogEntry.LogCode)
+        If String.IsNullOrEmpty(message) Then Return 'nothing to do
+        Dim logAct As Log = New Log(Context) With {.Name = "log message"}
+        logAct.Code = code
+        logAct.Message = message
+        Dim logRes As LogResult = logAct.Do()
+    End Sub
+    Function CheckDuplicate(ArticleName As String, FolderPath As String) As Boolean
+        Dim findDuplicate As Search = New Search(Context) With {.Name = "SearchArticle", .Description = "Checking article [" &amp; ArticleName &amp; "]  already exists in [" &amp; FolderPath &amp; "]"}
+        findDuplicate.Pars.Add("articleName", ArticleName)
+        findDuplicate.Pars.Add("folderPath", FolderPath)
+        findDuplicate.XQuery = "gn4:article[@name=$articleName and gn4:folderRef/nav:refObject/gn4:folder/@path=$folderPath]"
+        Dim findDuplicateRes As SearchResult = findDuplicate.Do()
+        If findDuplicateRes.IdsCount &gt; 0 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+    Function ReplaceGn3Tags(Txt As String) As String
+
+        Txt = Txt.Replace("&amp;", "&amp;amp;")
+        Txt = Txt.Replace("%", "&amp;#37;")
+        Txt = Txt.Replace("-", "&amp;#45;")
+        Txt = Txt.Replace("$\", "")
+        Txt = Txt.Replace("&gt;grouphd&lt;", "&lt;t:tag n='grouphd'/&gt;")
+        Txt = Txt.Replace("&gt;hld 8pt&lt;", "&lt;t:tag n='hld 8pt'/&gt;")
+        Txt = Txt.Replace("&gt;ld LD,1,1&lt;", "&lt;t:tag n='ld LD,1,1'/&gt;")
+        Txt = Txt.Replace("&gt;default&lt;", "&lt;t:tag n='default'/&gt;")
+        Txt = Txt.Replace("&gt;secsubhd1&lt;", "&lt;t:tag n='secsubhd1'/&gt;")
+        Txt = Txt.Replace("&gt;sechd&lt;", "&lt;t:tag n='sechd'/&gt;")
+        Txt = Txt.Replace("&gt;bld1&lt;", "&lt;t:tag n='bld1'/&gt;")
+        Txt = Txt.Replace("&gt;tb&lt;", "&lt;t:tag n='tb'/&gt;")
+        Txt = Txt.Replace("$", "&lt;t:stab/&gt;")
+        Txt = Txt.Replace("&gt;ql&lt;", "&lt;t:tag n='ql'/&gt;")
+        Txt = Txt.Replace("&gt;nml&lt;", "&lt;t:tag n='nml'/&gt;")
+        Txt = Txt.Replace("&gt;wintab&lt;", "&lt;t:tag n='wintab'/&gt;")
+        Txt = Txt.Replace("&gt;hilotab&lt;", "&lt;t:tag n='hilotab'/&gt;")
+        Txt = Txt.Replace("&gt;ranktab1&lt;", "&lt;t:tag n='ranktab1'/&gt;")
+        Txt = Txt.Replace("&gt;ranktab&lt;", "&lt;t:tag n='ranktab'/&gt;")
+        Txt = Txt.Replace("&gt;movetab&lt;", "&lt;t:tag n='movetab'/&gt;")
+        Txt = Txt.Replace(vbTab, "&lt;t:tab/&gt;")
+
+        Return Txt
+    End Function
+	
+    Function BuildXml(Body As String, folderPath As String, ArticleName As String) As XDocument
+        Dim x = "&lt;article name='" + ArticleName + "'&gt;&lt;folderRef&gt;&lt;keyVal&gt;" + folderPath + "&lt;/keyVal&gt;&lt;/folderRef&gt;&lt;authors&gt;IRess&lt;/authors&gt;&lt;title&gt;" + ArticleName + "&lt;/title&gt;"
+        x += "&lt;summary&gt;&lt;/summary&gt;&lt;headline&gt;ArticleName&lt;/headline&gt;&lt;instructions&gt;Print with the correct font.&lt;/instructions&gt;&lt;keywords&gt;&lt;item&gt;IRess&lt;/item&gt;&lt;/keywords&gt;"
+        x += "&lt;txts&gt;&lt;head name='" + ArticleName + ",hd" + "'&gt;&lt;folderRef&gt;&lt;keyVal&gt;" + folderPath + "&lt;/keyVal&gt;&lt;/folderRef&gt;&lt;tText&gt;"
+        x += "&lt;t:t xmlns:t='http://www.teradp.com/schemas/GN3/t.xsd'&gt;&lt;t:p&gt;" + ArticleName + "&lt;/t:p&gt;&lt;/t:t&gt;&lt;/tText&gt;&lt;/head&gt;&lt;body name='" + ArticleName + "'&gt;"
+        x += "&lt;folderRef&gt;&lt;keyVal&gt;" + folderPath + "&lt;/keyVal&gt;&lt;/folderRef&gt;&lt;tText&gt;&lt;t:t xmlns:t='http://www.teradp.com/schemas/GN3/t.xsd'&gt;"
+        x += Body + "&lt;/t:t&gt;&lt;/tText&gt;&lt;/body&gt; &lt;/txts&gt; &lt;!-- set the APM position --&gt; &lt;contentPosition&gt;&lt;ref code=&lt;%= apmPos %&gt; &gt;
+  &lt;contentPosition&gt;
+&lt;/article&gt;"
+
+        Dim xArticle = XElement.Parse(x, LoadOptions.PreserveWhitespace)
+        Dim doc = New XDocument(xArticle)
+        doc.Declaration = New XDeclaration("1.0", "utf-8", "yes")
+        Return doc
+    End Function
+    Public Class RandomText
+        Public Property type As String
+        Public Property amount As Integer
+        Public Property number As String
+        Public Property number_max As String
+        Public Property format As String
+        Public Property time As String
+        Public Property text_out As String
+    End Class
+  Private Sub __Do()
+
+Dim file = Context.Data(0).LocalPath
+        Dim Cnt = 1
+        Try
+            LogInfo("Importing : " + Context.Data(0).LocalPath)
+            'We Always Deal With one File.
+            Dim SourceFile = Context.Data(0).LocalPath
+            'For Iress the Article Name is always the FileName
+            Dim tmpName = System.IO.Path.GetFileName(SourceFile).Replace(".t", "")
+            Dim ArticleName = "HR" + tmpName
+            'GN4 folderpath where the Article must be created
+            Dim FolderPath As String = "/system/users/griffithsg" 'Context.ParsVal("FolderPath")
+            'check if article exists, if it does carry on iterating until we get a name that is not in use
+            While CheckDuplicate(ArticleName, FolderPath) = True
+
+                ArticleName = ArticleName + "~" + Cnt.ToString()
+                Cnt = Cnt + 1
+
+            End While
+            'Read file in Line By Line and Replace Gn3 Tags,Tabs and Illegal characters
+            Dim reader = System.IO.File.OpenText(SourceFile)
+            Dim line As String = Nothing
+            Dim lines As Integer = 0
+            Dim Body As String = Nothing
+            While (reader.Peek() &lt;&gt; -1)
+                line = reader.ReadLine()
+                Body = Body + "&lt;t:p&gt;" + ReplaceGn3Tags(line) + "&lt;/t:p&gt;"
+            End While
+
+            ' build the Xml for The Article
+			Dim tmpAPMPos As String = tmpName.Substring(0, tmpName.Length - 4) 'cut the date part
+            Dim XmlArticle = BuildXml(Body, FolderPath, ArticleName, tmpAPMPos)
+
+            ' Import the Created Xml Article
+            Dim importArticle As ImportXml = New ImportXml(Context) With {.Name = "Create article", .Description = "Creating article [" &amp; ArticleName &amp; "]"}
+            importArticle.XmlIn = New XDocument(XmlArticle)
+            Dim importArticleRes As ImportXmlResult = importArticle.Do()
+            LogInfo("File Imported Successfully : " + Context.Data(0).LocalPath)
+        Catch
+            LogError("Error Importing File : " + Context.Data(0).LocalPath)
+        End Try
+  End Sub
+End Class
+</sourceCode></xml></log>

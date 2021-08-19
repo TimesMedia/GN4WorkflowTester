@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?><log event="ImportExportErr" loginGuid="9c7de57a-900f-4017-88f9-f22381dd6854" userId="2018248" userName="avusa\pklgn4bck" xmlns="http://www.teradp.com/schemas/GN4/1/Log.xsd"><description>XML import: object(s) input</description><error code="257" name="ImportError">Error importing XML: 'User avusa\pklgn4bck does not have permission to create story in folder '/Wires/AFP_Texts' (id: 1788) (ERR1330)' (ERR0257)</error><xml><story name="6800427f-b50d-4ff5-a02f-ca3892a0ddbd" priority="medium" xmlns:gn4="urn:schemas-teradp-com:gn4tera" xmlns:lc="http://www.teradp.com/schemas/GN4/1/LoginContext.xsd" xmlns:oc="http://www.teradp.com/schemas/GN4/1/OperationContext.xsd" xmlns:nav="http://www.teradp.com/schemas/GN4/1/ObjNav.xsd" xmlns:fn="http://www.teradp.com/schemas/GN4/1/Xslt" xmlns:edfn="http://www.teradp.com/schemas/GN4/1/EditorialXslt" xmlns=""><rights><ref><keyVal>AFP</keyVal></ref></rights><sourceRef><keyVal>AFP</keyVal></sourceRef><sourceId>urn:newsml:afp.com:20190925T120215Z:TX-PAR-EJM27:1</sourceId><followId>urn:newsml:afp.com:20190925T120215Z:TX-PAR-EJM27:1</followId><sourceFileName>afp.com-20190925T120200Z-TX-PAR-EJM27.xml</sourceFileName><keywords><item>Texas</item><item>Oil/Gas</item><item>Energy</item><item>United States</item><item>North America</item><item>PRESS-RELEASE-BUSINESS-WIRE</item></keywords><folderRef><keyVal>/Wires/AFP_Texts</keyVal></folderRef><title>Press Release from Business Wire: Schlumberger Limited</title><authors></authors><summary>   
+Schlumberger Limited ("Schlumberger") today announced the expiration of the previously announced cash tender offer by Schlumberger Holdings Corporation, an indirect wholly-owned subsidiary of Schlumberger ("SHC"), for any and all of its outstanding (a) 3.000% Senior Notes due 2020 (the "2020 Notes") and (b) 3.625% Senior Notes due 2022 (the "2022 Notes," and together with the 2020 Notes, the "Notes"), on the terms and subject to the conditions set forth in the Offer to Purchase, dated...</summary><city>HOUSTON</city><xmlText><p>   
+Schlumberger Limited ("Schlumberger") today announced the expiration of the previously announced cash tender offer by Schlumberger Holdings Corporation, an indirect wholly-owned subsidiary of Schlumberger ("SHC"), for any and all of its outstanding (a) 3.000% Senior Notes due 2020 (the "2020 Notes") and (b) 3.625% Senior Notes due 2022 (the "2022 Notes," and together with the 2020 Notes, the "Notes"), on the terms and subject to the conditions set forth in the Offer to Purchase, dated September 18, 2019 (the "Offer to Purchase") and the related Notice of Guaranteed Delivery attached to the Offer to Purchase (the "Notice of Guaranteed Delivery"). The tender offer is referred to herein as the "Offer." The Offer to Purchase and the Notice of Guaranteed Delivery are referred to herein collectively as the "Offer Documents." The Offer expired at 5:00 p.m., New York City time, on September 24, 2019 (the "Expiration Time"). As of the Expiration Time, valid tenders had been received (and not withdrawn) in the amounts set forth in the table below.
+</p><p>-0- *T  Title of Security  CUSIP Numbers  Aggregate Principal Amount Outstanding  Aggregate Principal Amount Tendered(1)  Percentage of Outstanding Amount Tendered(1)  
+3.000% Senior Notes due 2020
+  
+806851AC5 / U8066LAC8
+  
+$1,198,732,000
+  
+ $781,358,000
+  
+ 65.18%
+  
+3.625% Senior Notes due 2022
+  
+806851AE1 / U8066LAD6
+  
+ $616,522,000
+  
+ $321,149,000
+  
+52.09%
+ *T</p><p>   (1) Excludes Notes tendered through the guaranteed delivery procedures set forth in the Offer to Purchase.
+</p><p>   
+SHC expects to accept for purchase all Notes validly tendered and not validly withdrawn in the Offer, including Notes tendered in accordance with the guaranteed delivery procedures set forth in the Offer to Purchase. Payment for the Notes purchased pursuant to the Offer is intended to be made on September 27, 2019 (the "Settlement Date").
+</p><p>   
+The applicable "Tender Offer Consideration" will be $1,011.58 for each $1,000 principal amount of 2020 Notes and $1,051.27 for each $1,000 principal amount of 2022 Notes, plus accrued and unpaid interest to, but not including, the Settlement Date, payable on the Settlement Date.
+</p><p>   
+The Offer was made pursuant to the Offer to Purchase and the Notice of Guaranteed Delivery. D.F. King &amp; Co., Inc. acted as the tender agent and information agent for the Offer and Goldman Sachs &amp; Co. LLC acted as the dealer manager for the Offer.
+</p><p>   Cautionary Note Regarding Forward-Looking Statements
+</p><p>   
+This press release contains "forward-looking statements" within the meaning of the federal securities laws - that is, statements about the future, not about past events. Such statements often contain words such as "expect," "may," "believe," "plan," "estimate," "intend," "anticipate," "should," "could," "will," "see," "likely," and other similar words. Forward-looking statements address matters that are, to varying degrees, uncertain, such as statements regarding the terms and timing for completion of the Offer, including the acceptance for purchase of any Notes validly tendered and the expected Settlement Date thereof. Schlumberger and SHC cannot give any assurance that such statements will prove correct. These statements are subject to, among other things, the risks and uncertainties detailed in Schlumberger's most recent Forms 10-K, 10-Q, and 8-K filed with or furnished to the Securities and Exchange Commission. Actual outcomes may vary materially from those reflected in Schlumberger's forward-looking statements. The forward-looking statements speak only as of the date made, and Schlumberger disclaims any intention or obligation to update publicly or revise such statements, whether as a result of new information, future events or otherwise.
+</p><p></p><p>   View source version on businesswire.com: https://www.businesswire.com/news/home/20190925005499/en/</p><p></p><p>   Contact</p><p>   
+Simon Farrant - Vice President of Investor Relations, Schlumberger Limited
+ Joy V. Domingo - Director of Investor Relations, Schlumberger Limited
+ Office +1 (713) 375-3535
+ investor-relations@slb.com
+</p><p>   
+© 2019 Business Wire, Inc.
+
+Disclaimer:
+This material is not an AFP editorial material, and AFP shall not bear responsibility for the accuracy of its content. In case you have any questions about the content, kindly refer to the contact person/entity mentioned in the text of the release.</p><p></p><p></p><p class="credit">AFP</p></xmlText><xmlFormatRef><keyVal>XHTML</keyVal></xmlFormatRef></story></xml></log>
