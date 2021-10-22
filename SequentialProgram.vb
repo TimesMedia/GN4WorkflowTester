@@ -18,7 +18,7 @@ Imports System.Xml.XPath
 Imports System.Xml.Xsl
 Imports TeraDP.GN4.Server
 Imports TeraDP.GN4.Server.CodeActivity
-Imports Crosswords_Dual
+Imports STTvTimes
 
 
 '<codeWorkflow
@@ -157,8 +157,8 @@ Public Class SequentialWorkflow
         'prepare the complete article txts node, merging the body with photoCaption elements using the provided img id list
         Dim txtsNode As XElement = New XElement("txts")
         'in this example we assume the tTextElement is an xml already compatible with a txt.tText structure:
-        '  < tText>
-        '       <t:p xmlns: t = "http://www.teradp.com/schemas/GN3/t.xsd" ><t:tag n="mytag"/>Some text</t:p>
+        '  <tText>
+        '       <t:p xmlns:t="http://www.teradp.com/schemas/GN3/t.xsd" ><t:tag n="mytag"/>Some text</t:p>
         '  </tText>
 
         Dim bodyElement As XElement = <body name=<%= articleName %>>
@@ -174,9 +174,7 @@ Public Class SequentialWorkflow
                                           </folderRef>
                                           <tText>
                                               <t:p xmlns:t="http://www.teradp.com/schemas/GN3/t.xsd">
-                                                  <t:tag n="sav"/>
-                                                  <t:tag n="colname"/>
-                                                  <t:tag n="fill '.' 3pt,2"/> Chess <t:bell/><t:tag n="res"/><t:tag n="f 177"/><t:tag n="grey 100"/> Patrick Foley
+                                                  <t:tag n="sav"/><t:tag n="colname"/><t:tag n="fill '.' 3pt,2"/>Chess<t:bell/><t:tag n="res"/><t:tag n="f 177"/><t:tag n="grey 100"/>Patrick Foley
                                               </t:p>
                                           </tText>
                                       </head>
@@ -239,6 +237,7 @@ Public Class SequentialWorkflow
                                            <localGeometry/>
                                            <jumps/>
                                        </txtGeometry>
+
                                    </objects>
 
         Dim importArticle As ImportXml = New ImportXml(Context) With {.Name = "Create article", .Description = "Creating article [" & articleName & "]"}
@@ -256,28 +255,14 @@ Public Class SequentialWorkflow
         'load the article and get its current text
         If findArticleResult.IdsCount > 0 Then
             Dim loadArticle As LoadObjects = New LoadObjects(Context) With {.Name = "load article"}
-            loadArticle.RefKeys = True
             loadArticle.ObjectIds = findArticleResult.IdsOut
-            loadArticle.Xslt = <article id="{@id}" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-                                   <images>
-                                       <xsl:for-each select="gn4:txts/gn4:photoCaption">
-                                           <image id="{gn4:ref/nav:refObject/gn4:img/@id}">
-                                               <xsl:copy-of select="gn4:ref/nav:refObject/gn4:img/gn4:low"/>
-                                               <ref objectType="img">
-                                                   <keyRef objectType="folder">...</keyRef>
-                                                   <keyVal>puzzle_28012020</keyVal>
-                                               </ref>
-                                           </image>
-                                       </xsl:for-each>
-                                   </images>
-
-                               </article>
+            loadArticle.Xslt = <xsl:copy-of select="gn4:txts/gn4:body/gn4:tText" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/>
             FindArticleXml = loadArticle.Do.XmlOut.Root
         End If
     End Function
 
     Function ProcessOffice(data As TeraDP.GN4.Workflow.IActivityData, xmp As XDocument, filesNumber As Integer) As String
-        If data Is Nothing Or xmp Is Nothing Then Return ""
+        If data Is Nothing Or xmp Is Nothing Then Exit Function
 
         'extract the text from file: return a XML document as binary file
         Dim readAct As TransformData = New TransformData(Context) With {.Name = "readContentFromOffice"}
@@ -307,30 +292,6 @@ Public Class SequentialWorkflow
     End Function
 
 
-    Function PreviousWorkDay(ByVal curDate As DateTime) As String
-        Do
-            curDate = curDate.AddDays(-1)
-        Loop While IsWeekend(curDate)
-        Return curDate.ToString("ddMMyyyy", System.Globalization.CultureInfo.InvariantCulture)
-    End Function
-
-    Function NextWorkDay(ByVal curDate As DateTime) As String
-        Do
-            curDate = curDate.AddDays(+1)
-        Loop While IsWeekend(curDate)
-        Return curDate.ToString("ddMMyyyy", System.Globalization.CultureInfo.InvariantCulture)
-    End Function
-
-    Function NextWeek(ByVal curDate As DateTime) As String
-        curDate = curDate.AddDays(7)
-        Return curDate.ToString("ddMMyyyy", System.Globalization.CultureInfo.InvariantCulture)
-    End Function
-
-    Function IsWeekend(ByVal myDate As DateTime) As Boolean
-        Return myDate.DayOfWeek = DayOfWeek.Saturday OrElse myDate.DayOfWeek = DayOfWeek.Sunday
-    End Function
-
-
     '  ]]>
     '</Members>
     '--------------------- End of sequential workflows sub/functions/fields
@@ -340,8 +301,12 @@ Public Class SequentialWorkflow
         '  <![CDATA[
 
 
+        '1. parse the file to get an xml of its metadata, including info about the mime type
+        '2. based on the mime type, pass the data to a transformData activity (processoffice)
+        '3. the transformdata returns an xml, or text read from th inout data
+        '4. massage the output to create an xmldcoument
+        '5. pass the xmldoc to an importxml activity to create the gn4 content
         Dim folderPath = Context.ParValue("folderPath")
-
         Dim typography = Context.ParValue("typography")
         If typography = "" Then
             Utils.LogError("Please define the 'typography' parameter")
@@ -357,16 +322,6 @@ Public Class SequentialWorkflow
             Utils.LogError("Please define the 'textFormat' parameter")
             Return
         End If
-        Dim imgFolderPath = Context.ParValue("imgFolderPath")
-        If imgFolderPath = "" Then
-            Utils.LogError("Please define the 'imgFolderPath' parameter")
-            Return
-        End If
-        'Dim imgPhysicalPath = Context.ParValue("imgPhysicalPath")
-        'If imgPhysicalPath = "" Then
-        '    Utils.LogError("Please define the 'imgPhysicalPath' parameter")
-        '    Return
-        'End If
 
         'process the file one by one
         Dim dataList As List(Of TeraDP.GN4.Workflow.IActivityData) = New List(Of TeraDP.GN4.Workflow.IActivityData)(Context.Data)
@@ -376,13 +331,15 @@ Public Class SequentialWorkflow
             If Not data Is Nothing Then
                 'get the file name
                 Dim filename As String = data.Info.SrcName
-
                 Try
                     'extract the file metadata
                     Dim parseAct As Parse = New Parse(Context) With {.Name = "parse file", .Description = "Parsing uploaded files"}
                     parseAct.Data = data
                     'parsing options: how to create thumbnails and xmp document
-                    parseAct.Options.ThumbnailSize = 0
+                    parseAct.Options.ThumbnailSize = 120
+                    parseAct.Options.ThumbnailQuality = 80
+                    parseAct.Options.ImageMinRes = 72
+                    parseAct.Options.DefaultRes = 72
                     parseAct.Options.PreviewSize = 0
                     parseAct.Options.XmpRoot = False
                     parseAct.Options.UseAttributes = False
@@ -391,115 +348,33 @@ Public Class SequentialWorkflow
 
                     Dim parseRes As ParseResult = parseAct.Do()
 
+
                     Dim xmp As XDocument = parseRes.XmlOut
-                    If Not parseRes.MimeOut Is Nothing Then
-                        'check the mime type of the uploaded file
-                        Dim mime As String = parseRes.MimeOut
-                        Dim mytext As String = ProcessOffice(data, xmp, dataList.Count)
-                        Dim myxmlOut As String = ""
+                    Dim edate As String = ProcessOffice(data, xmp, dataList.Count).Trim()
+                    Dim expenddt As Date = Date.ParseExact(edate, "dd/MM/yyyy",
+            System.Globalization.DateTimeFormatInfo.InvariantInfo)
 
-                        Dim Xml_Dual_Transform As Xml_Dual_Transform = New Xml_Dual_Transform()
-                        myxmlOut = Xml_Dual_Transform.Process(mytext)
-
-                        Dim xmlSourceTransformed As XElement = XElement.Parse(myxmlOut)
+                    Dim startDate As String = expenddt.Year.ToString() + "-" + expenddt.Month.ToString("d2") + "-" + expenddt.Day.ToString("d2")
+                    Dim myxmlOut As String = ""
 
 
-                        Dim crossWordName As String = data.Info.SrcNameNoExtension
-                        Dim crossWordTText As XElement = xmlSourceTransformed.XPathSelectElement("//puzzle/tText")
-                        If IsNothing(crossWordTText) Then
-                            Utils.LogError("Error processing the input file (cannot find the node /puzzle/tText)." & vbCrLf & "Check the transformed xml in c:\temp\err_" & data.Info.SrcNameNoExtension & ".xml")
-                            xmlSourceTransformed.Save("c:\temp\err_" & data.Info.SrcNameNoExtension & ".xml")
-                            Return
-                        End If
-                        Dim solutionXml As XElement = xmlSourceTransformed.XPathSelectElement("//solution")
-                        If IsNothing(solutionXml) Then
-                            Utils.LogError("Error processing the input file (cannot find the node /solution)." & vbCrLf & "Check the transformed xml in c:\temp\err_" & data.Info.SrcNameNoExtension & ".xml")
-                            xmlSourceTransformed.Save("c:\temp\err_" & data.Info.SrcNameNoExtension & ".xml")
-                            Return
-                        End If
-                        Dim imagesXml As XElement = xmlSourceTransformed.XPathSelectElement("//images")
-                        If IsNothing(imagesXml) Then
-                            Utils.LogError("Error processing the input file (cannot find the node //images)." & vbCrLf & "Check the transformed xml in c:\temp\err_" & data.Info.SrcNameNoExtension & ".xml")
-                            xmlSourceTransformed.Save("c:\temp\err_" & data.Info.SrcNameNoExtension & ".xml")
-                            Return
-                        End If
-                        Dim solutionName As String = ""
-                        Dim crossWordDateStr As String = crossWordName.Replace("TXW_", "").Replace("_BusinessDay", "")
-                        Dim crossWordDate As Date = Date.Parse(crossWordDateStr.Substring(4, 4) & "-" & crossWordDateStr.Substring(2, 2) & "-" & crossWordDateStr.Substring(0, 2))
-                        Dim imgSolutionDateStr As String = NextWorkDay(crossWordDate)
-                        'build xml of the current and previous crosswords
-                        Dim imgsXml As XElement = <objects>
-                                                      <img name=<%= "puzzle_" & crossWordDateStr %> source="Back4">
-                                                          <folderRef><keyVal><%= imgFolderPath %></keyVal></folderRef>
-                                                          <low mime="image/pdf">
-                                                              <data>
-                                                                  <%= xmlSourceTransformed.XPathSelectElement("//images/default").Value %>
-                                                              </data>
-                                                          </low>
-                                                      </img>
-                                                      <img name=<%= "solution_" & imgSolutionDateStr %> source="Back4">
-                                                          <folderRef><keyVal><%= imgFolderPath %></keyVal></folderRef>
-                                                          <low mime="image/pdf">
-                                                              <data>
-                                                                  <%= xmlSourceTransformed.XPathSelectElement("//images/solution").Value() %>
-                                                              </data>
-                                                          </low>
-                                                      </img>
-                                                  </objects>
+                    Dim Xml_TvGuide_Transform As Xml_STTvGuide_Transform = New Xml_STTvGuide_Transform()
+                    myxmlOut = Xml_TvGuide_Transform.Process(startDate)
 
-                        Dim createImgs As ImportXml = New ImportXml(Context) With {.Name = "create/update imgs"}
-                        createImgs.XmlIn = New XDocument(imgsXml)
-                        createImgs.Overwrite = True
-                        Dim createImgsRes As ImportXmlResult = createImgs.Do()
+                    Dim xmlSourceTransformed As XElement = XElement.Parse(myxmlOut)
+                    'xmlSourceTransformed.Save("c:\temp\" & data.Info.SrcName)
+                    Dim crossWordXml As XElement = xmlSourceTransformed.XPathSelectElement("/")
 
-                        If createImgsRes.IdsOut.Count > 0 Then
-                            For Each imgId In createImgsRes.IdsOut
-                                'generate the image preview
-                                Dim executeAct As ExecuteSequentialWorkflow = New ExecuteSequentialWorkflow(Context) _
-                With {.Name = "createImagePreview", .Description = "Creating image preview..."}
-                                executeAct.WorkflowName = "createPreviewThumbnail"
-                                executeAct.Pars.Add("objectId", imgId)
-                                executeAct.Pars.Add("objectTypeName", "img")
-                                executeAct.Pars.Add("sourceAttrName", "low")
-                                executeAct.Pars.Add("previewSize", "400")
-                                executeAct.Pars.Add("thumbSize", "200")
-                                'Dim executeRes As ExecuteSequentialWorkflowResult = executeAct.Do() 'UNCOMMENT WHEN GENERATING WORKFLOW FOR GN4
-                            Next
-                        End If
-                        'find the solution image for the current article, if any, 
-                        'and append later its id to the list of img to reference to this article
+                    CreateArticle(crossWordXml, startDate, True, folderPath, Nothing, textFormat, typography, title)
 
-                        Dim findImg As Search = New Search(Context) With {.Name = "check img exists"}
-                        findImg.XQuery = "gn4:img[@name=$imgName and gn4:folderRef/nav:refObject/gn4:folder[@path=$imgFolderPath]]"
-                        findImg.Pars.Add("imgName", "solution_" & crossWordDateStr)
-                        findImg.Pars.Add("imgFolderPath", imgFolderPath)
-                        Dim findImgResult As SearchResult = findImg.Do()
-
-                        Dim articleImgIds As IList(Of Integer)
-                        articleImgIds = createImgsRes.IdsOut
-                        If findImgResult.IdsCount > 0 Then
-                            articleImgIds.Add(findImgResult.IdsOut(0))
-                        End If
-
-                        Dim findImgSol As Search = New Search(Context) With {.Name = "check img exists"}
-                        findImgSol.XQuery = "gn4:img[@name=$imgName and gn4:folderRef/nav:refObject/gn4:folder[@path=$imgFolderPath]]"
-                        findImgSol.Pars.Add("imgName", "solution_" & imgSolutionDateStr)
-                        findImgSol.Pars.Add("imgFolderPath", imgFolderPath)
-                        Dim findImgSolResult As SearchResult = findImgSol.Do()
-
-                        If findImgSolResult.IdsCount > 0 Then
-                            articleImgIds.Remove(findImgSolResult.IdsOut(0))
-                        End If
-
-                        'finally, create the article
-                        CreateArticle(crossWordTText, crossWordName, True, folderPath, articleImgIds, textFormat, typography, title)
-
-                    End If
                 Catch e As Exception
-                    Utils.LogError("Error processing file " & data.Info.SrcName & ": " & e.InnerException.StackTrace & e.InnerException.Message)
+                    Console.WriteLine(e.Message)
                 End Try
 
             End If
+
+
+
             idx += 1
         End While
 

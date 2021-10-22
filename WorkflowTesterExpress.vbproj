@@ -152,6 +152,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Microsoft.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\ST Tv Guide\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="ParseAPDFL, Version=2.6.4118.26, Culture=neutral, PublicKeyToken=3b47b95184e054f8, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\ParseAPDFL.dll</HintPath>
@@ -174,6 +178,9 @@
     <Reference Include="Spire.Pdf, Version=5.11.0.2046, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Libraries\BD Crossword\Spire.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="ST_TvGuide">
+      <HintPath>..\..\..\Libraries\ST Tv Guide\ST_TvGuide.dll</HintPath>
     </Reference>
     <Reference Include="ST_TwoSpeed">
       <HintPath>..\..\..\Libraries\ST Two Speed\ST_TwoSpeed.dll</HintPath>
