@@ -459,7 +459,7 @@ Public Class SequentialWorkflow
                                 executeAct.Pars.Add("sourceAttrName", "low")
                                 executeAct.Pars.Add("previewSize", "400")
                                 executeAct.Pars.Add("thumbSize", "200")
-                                Dim executeRes As ExecuteSequentialWorkflowResult = executeAct.Do()
+                                'Dim executeRes As ExecuteSequentialWorkflowResult = executeAct.Do() //COMMENT FOR TESTING. UNCOMMENT FOR WORKFLOW
                             Next
                         End If
 
