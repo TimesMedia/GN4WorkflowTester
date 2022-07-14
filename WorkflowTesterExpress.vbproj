@@ -175,6 +175,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Libraries\BD Crossword\Spire.Pdf.dll</HintPath>
     </Reference>
+    <Reference Include="ST_Crossword">
+      <HintPath>..\..\..\Libraries\ST Crossword\ST_Crossword.dll</HintPath>
+    </Reference>
     <Reference Include="ST_TwoSpeed">
       <HintPath>..\..\..\Libraries\ST Two Speed\ST_TwoSpeed.dll</HintPath>
     </Reference>

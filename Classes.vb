@@ -566,7 +566,7 @@ Public Class LastUsedData
   Public Property Data As String()
   ''' <summary>The .eml email input file</summary>
   Public Property Email As String
-  ''' <summary>The first comment line of the workflow file. Typically: '&lt;!-- Miles33/Tera DP --&gt;'</summary>
+  ''' <summary>The first comment line of the workflow file. Typically: '<!-- Miles33/Tera DP --&gt;'</summary>
   Public Property CommentHeader As String
   ''' <summary>Optional comments of the workflow file</summary>
   Public Property Comments As String

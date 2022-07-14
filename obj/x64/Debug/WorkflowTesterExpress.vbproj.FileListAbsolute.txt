@@ -29,7 +29,6 @@ C:\Tera\WFTest\WorkflowTester\bin\BD_Crosswords.dll
 C:\Tera\WFTest\WorkflowTester\bin\Crosswords_Dual.dll
 C:\Tera\WFTest\WorkflowTester\bin\ST_TwoSpeed.dll
 C:\Tera\WFTest\WorkflowTester\bin\Sowetan_Crossword.dll
-C:\Tera\WFTest\WorkflowTester\bin\Newtonsoft.Json.dll
 C:\Tera\WFTest\WorkflowTester\bin\ICSharpCode.SharpZipLib.dll
 C:\Tera\WFTest\WorkflowTester\bin\FParsecCS.dll
 C:\Tera\WFTest\WorkflowTester\bin\FParsec.dll
@@ -49,3 +48,5 @@ C:\Tera\WFTest\WorkflowTester\bin\WinUI.XmlSerializers.dll
 C:\Tera\WFTest\WorkflowTester\obj\x64\Debug\WorkflowTester.exe.config
 C:\Tera\WFTest\WorkflowTester\bin\TeraXmp.dll
 C:\Tera\WFTest\WorkflowTester\bin\TeraPdfLib.dll
+C:\Tera\WFTest\WorkflowTester\bin\Newtonsoft.Json.dll
+C:\Tera\WFTest\WorkflowTester\bin\ST_Crossword.dll
