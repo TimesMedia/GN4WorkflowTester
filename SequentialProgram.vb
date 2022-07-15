@@ -362,11 +362,11 @@ Public Class SequentialWorkflow
             Utils.LogError("Please define the 'imgFolderPath' parameter")
             Return
         End If
-        'Dim imgPhysicalPath = Context.ParValue("imgPhysicalPath")
-        'If imgPhysicalPath = "" Then
-        '    Utils.LogError("Please define the 'imgPhysicalPath' parameter")
-        '    Return
-        'End If
+        Dim imgPhysicalPath = Context.ParValue("imgPhysicalPath")
+        If imgPhysicalPath = "" Then
+            Utils.LogError("Please define the 'imgPhysicalPath' parameter")
+            Return
+        End If
 
         'process the file one by one
         Dim dataList As List(Of TeraDP.GN4.Workflow.IActivityData) = New List(Of TeraDP.GN4.Workflow.IActivityData)(Context.Data)
@@ -451,6 +451,9 @@ Public Class SequentialWorkflow
                         createImgs.XmlIn = New XDocument(imgsXml)
                         createImgs.Overwrite = True
                         Dim createImgsRes As ImportXmlResult = createImgs.Do()
+
+                        Xml_Dual_Transform.UploadPdf(imgPhysicalPath, "puzzle_" & crossWordDateStr, xmlSourceTransformed.XPathSelectElement("//images/default").Value)
+                        Xml_Dual_Transform.UploadPdf(imgPhysicalPath, "solution_" & imgSolutionDateStr, xmlSourceTransformed.XPathSelectElement("//images/solution").Value())
 
                         If createImgsRes.IdsOut.Count > 0 Then
                             For Each imgId In createImgsRes.IdsOut
