@@ -18,7 +18,8 @@ Imports System.Xml.XPath
 Imports System.Xml.Xsl
 Imports TeraDP.GN4.Server
 Imports TeraDP.GN4.Server.CodeActivity
-Imports ST_Crossword
+Imports Crosswords_Telegraph
+
 
 
 '<codeWorkflow
@@ -323,28 +324,37 @@ Public Class SequentialWorkflow
                         Dim xmlDoc As New XmlDocument()
                         xmlDoc.Load(xmlFile)
 
-                        Dim xml_30_Min_Transform As ST_Crossword_Transform = New ST_Crossword_Transform()
+                        Dim xml_30_Min_Transform As Crosswords_Telegraph_Transform = New Crosswords_Telegraph_Transform()
                         myxmlOut = xml_30_Min_Transform.Process(xmlDoc.InnerXml)
+
+                        Dim fileParts = data.Info.SrcNameNoExtension.Split(CChar("-"))
+                        Dim fileNum As Short = CShort(fileParts.Last)
+                        Dim cwType = fileParts.First
+
+                        'cater for filenames: cryptic-crossword-20220708-30034 | prize-cryptic-20220709-30035 | quick-crossword-20220709-30035
+                        If cwType IsNot "cryptic" Or cwType IsNot "quick" Then
+                            cwType = fileParts.ElementAt(1)
+                        End If
 
                         Dim xmlSourceTransformed As XElement = XElement.Parse(myxmlOut)
                         'xmlSourceTransformed.Save("c:\temp\" &amp; data.Info.SrcName)
                         Dim crossWordXml As XElement = xmlSourceTransformed.XPathSelectElement("//crossword")
-                        Dim crossWordName As String = crossWordXml.Attribute("id").Value()
+                        Dim crossWordName As String = cwType + "_" + fileNum.ToString()
                         Dim crossWordTText As XElement = crossWordXml.XPathSelectElement("//crossword/article/tText")
                         Dim solutionXml As XElement = xmlSourceTransformed.XPathSelectElement("//solution")
-                        Dim solutionName As String = (CInt(crossWordName) + 2).ToString()
+                        Dim solutionName As String = cwType + "_" + (fileNum + 1).ToString()
                         Dim solutionTText As XElement = xmlSourceTransformed.XPathSelectElement("//solution/article/tText")
                         Dim imgName As String = crossWordXml.<article>.@grid
 
                         '1 check img exists and return its id, otherwise 0
-
 
                         'load the article and get its current text, if found.
                         'if not existing, the node will be empty
                         Dim currrentCrossWordsXml As XElement = FindArticleXml(crossWordName, folderPath)
 
                         If currrentCrossWordsXml IsNot Nothing Then
-                            If currrentCrossWordsXml.Value.Trim.StartsWith("QUICK") Or currrentCrossWordsXml.Value.Trim.StartsWith("CRYPTIC") Then
+                            'If currrentCrossWordsXml.Value.Trim.StartsWith("QUICK") Or currrentCrossWordsXml.Value.Trim.StartsWith("CRYPTIC") Then
+                            If currrentCrossWordsXml.Value.Trim.StartsWith("PREVIOUS SOLUTION") Then
                                 Dim mergedXmlText As XElement = <tText/>
                                 mergedXmlText.Add(crossWordXml.DescendantNodes())
                                 mergedXmlText.Add(currrentCrossWordsXml.DescendantNodes)
@@ -367,8 +377,10 @@ Public Class SequentialWorkflow
                             findArticleImg.Pars.Add("imgName", imgName)
                             findArticleImg.Pars.Add("imgFolderPath", imgFolderPath)
                             Dim findArticleImgResult As SearchResult = findArticleImg.Do()
+
                             'if the solution name exists and starts with 'repvious solution' we have to overwrite
-                            If currrentCrossWordsXml.Value.Trim.StartsWith("QUICK") Or currrentCrossWordsXml.Value.Trim.StartsWith("CRYPTIC") Then
+                            'If currrentCrossWordsXml.Value.Trim.StartsWith("QUICK") Or currrentCrossWordsXml.Value.Trim.StartsWith("CRYPTIC") Then
+                            If currrentSolutionXml.Value.Trim.StartsWith("PREVIOUS SOLUTION") Then
                                 CreateArticle(solutionTText, solutionName, True, folderPath, findArticleImgResult.IdsOut)
                             Else
                                 'if it does not start with that string, it contains the definitions, and we append the solutions
