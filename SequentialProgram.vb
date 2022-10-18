@@ -18,7 +18,7 @@ Imports System.Xml.XPath
 Imports System.Xml.Xsl
 Imports TeraDP.GN4.Server
 Imports TeraDP.GN4.Server.CodeActivity
-Imports STTvTimes
+Imports CTSE
 
 
 '<codeWorkflow
@@ -312,11 +312,11 @@ Public Class SequentialWorkflow
             Utils.LogError("Please define the 'typography' parameter")
             Return
         End If
-        Dim title = Context.ParValue("title")
-        If title = "" Then
-            Utils.LogError("Please define the 'title' parameter")
-            Return
-        End If
+        'Dim title = Context.ParValue("title")
+        'If title = "" Then
+        '    Utils.LogError("Please define the 'title' parameter")
+        '    Return
+        'End If
         Dim textFormat = Context.ParValue("textFormat")
         If textFormat = "" Then
             Utils.LogError("Please define the 'textFormat' parameter")
@@ -350,22 +350,16 @@ Public Class SequentialWorkflow
 
 
                     Dim xmp As XDocument = parseRes.XmlOut
-                    Dim edate As String = ProcessOffice(data, xmp, dataList.Count).Trim()
-                    Dim expenddt As Date = Date.ParseExact(edate, "dd/MM/yyyy",
-            System.Globalization.DateTimeFormatInfo.InvariantInfo)
-
-                    Dim startDate As String = expenddt.Year.ToString() + "-" + expenddt.Month.ToString("d2") + "-" + expenddt.Day.ToString("d2")
                     Dim myxmlOut As String = ""
 
-
-                    Dim Xml_TvGuide_Transform As Xml_STTvGuide_Transform = New Xml_STTvGuide_Transform()
-                    myxmlOut = Xml_TvGuide_Transform.Process(startDate)
+                    Dim xmlTransform As CTSE_Transform = New CTSE_Transform()
+                    myxmlOut = xmlTransform.Process(data.LocalPath)
 
                     Dim xmlSourceTransformed As XElement = XElement.Parse(myxmlOut)
                     'xmlSourceTransformed.Save("c:\temp\" & data.Info.SrcName)
                     Dim crossWordXml As XElement = xmlSourceTransformed.XPathSelectElement("/")
 
-                    CreateArticle(crossWordXml, startDate, True, folderPath, Nothing, textFormat, typography, title)
+                    CreateArticle(crossWordXml, data.Info.SrcNameNoExtension, True, folderPath, Nothing, textFormat, typography, "FM")
 
                 Catch e As Exception
                     Console.WriteLine(e.Message)
