@@ -143,7 +143,7 @@ Public Class SequentialWorkflow
     End Function
 
 
-    Sub CreateArticle(tTextElement As XElement, articleName As String, overwrite As Boolean, folderPath As String, imgIdList As IList(Of Integer))
+    Sub CreateArticle(tTextElement As XElement, articleName As String, overwrite As Boolean, folderPath As String, imgIdList As IList(Of Integer), textFormat As String, typography As String, title As String)
         Dim counter As Int32
         counter = 0
         Dim tmpname As String = articleName
@@ -202,7 +202,7 @@ Public Class SequentialWorkflow
             Next
         End If
 
-        Dim xArticle As XElement = <article name=<%= articleName %>>
+        Dim xArticle As XElement = <objects><article name=<%= articleName %>>
                                        <folderRef>
                                            <keyVal><%= folderPath %></keyVal>
                                        </folderRef>
@@ -210,7 +210,34 @@ Public Class SequentialWorkflow
                                        <title><%= articleName %></title>
                                        <instructions></instructions>
                                        <%= txtsNode %>
-                                   </article>
+                                       </article>
+                                       <txtGeometry name=<%= Guid.NewGuid().ToString() %>>
+                                           <txtRef objectType="body">
+                                               <keyRef objectType="folder">
+                                                   <keyVal><%= folderPath %></keyVal>
+                                               </keyRef>
+                                               <keyVal><%= articleName %></keyVal>
+                                           </txtRef>
+                                           <regionRef objectType="region">
+                                               <keyRef objectType="title">
+                                                   <keyVal><%= title %></keyVal>
+                                               </keyRef>
+                                               <keyVal>Print</keyVal>
+                                           </regionRef>
+                                           <folderRef objectType="folder">
+                                               <keyVal><%= folderPath %></keyVal>
+                                           </folderRef>
+                                           <contextRef objectType="justContext">
+                                               <keyRef objectType="justScope">
+                                                   <keyVal><%= typography %></keyVal>
+                                               </keyRef>
+                                               <keyVal><%= textFormat %></keyVal>
+                                           </contextRef>
+                                           <data/>
+                                           <localGeometry/>
+                                           <jumps/>
+                                       </txtGeometry>
+                                   </objects>
 
         Dim importArticle As ImportXml = New ImportXml(Context) With {.Name = "Create article", .Description = "Creating article [" & articleName & "]"}
         importArticle.XmlIn = New XDocument(xArticle)
@@ -278,14 +305,21 @@ Public Class SequentialWorkflow
         '5. pass the xmldoc to an importxml activity to create the gn4 content
         Dim folderPath = Context.ParValue("folderPath")
         Dim imgFolderPath = Context.ParValue("imgFolderPath")
-        Dim sourceKind = Context.ParValue("sourceKind")
-        'sourceKind must be in the list:
-        ' 10MinuteCrossword
-        ' 20MinuteCrossword
-        ' Bridge
-        ' Chess
-        ' Sudoku
-        ' TwoSpeedCrossword
+        Dim typography = Context.ParValue("typography")
+        If typography = "" Then
+            Utils.LogError("Please define the 'typography' parameter")
+            Return
+        End If
+        Dim title = Context.ParValue("title")
+        If title = "" Then
+            Utils.LogError("Please define the 'title' parameter")
+            Return
+        End If
+        Dim textFormat = Context.ParValue("textFormat")
+        If textFormat = "" Then
+            Utils.LogError("Please define the 'textFormat' parameter")
+            Return
+        End If
 
 
         'process the file one by one
@@ -358,12 +392,12 @@ Public Class SequentialWorkflow
                                 Dim mergedXmlText As XElement = <tText/>
                                 mergedXmlText.Add(crossWordXml.DescendantNodes())
                                 mergedXmlText.Add(currrentCrossWordsXml.DescendantNodes)
-                                CreateArticle(mergedXmlText, crossWordName, True, folderPath, Nothing)
+                                CreateArticle(mergedXmlText, crossWordName, True, folderPath, Nothing, textFormat, typography, title)
                             Else
-                                CreateArticle(crossWordTText, crossWordName, True, folderPath, Nothing)
+                                CreateArticle(crossWordTText, crossWordName, True, folderPath, Nothing, textFormat, typography, title)
                             End If
                         Else
-                            CreateArticle(crossWordTText, crossWordName, True, folderPath, Nothing)
+                            CreateArticle(crossWordTText, crossWordName, True, folderPath, Nothing, textFormat, typography, title)
                         End If
 
                         Dim currrentSolutionXml As XElement = FindArticleXml(solutionName, folderPath)
@@ -381,16 +415,16 @@ Public Class SequentialWorkflow
                             'if the solution name exists and starts with 'repvious solution' we have to overwrite
                             'If currrentCrossWordsXml.Value.Trim.StartsWith("QUICK") Or currrentCrossWordsXml.Value.Trim.StartsWith("CRYPTIC") Then
                             If currrentSolutionXml.Value.Trim.StartsWith("PREVIOUS SOLUTION") Then
-                                CreateArticle(solutionTText, solutionName, True, folderPath, findArticleImgResult.IdsOut)
+                                CreateArticle(solutionTText, solutionName, True, folderPath, findArticleImgResult.IdsOut, textFormat, typography, title)
                             Else
                                 'if it does not start with that string, it contains the definitions, and we append the solutions
                                 Dim mergedXmlText As XElement = <tText/>
                                 mergedXmlText.Add(currrentSolutionXml.DescendantNodes())
                                 mergedXmlText.Add(solutionTText.DescendantNodes)
-                                CreateArticle(mergedXmlText, solutionName, True, folderPath, findArticleImgResult.IdsOut)
+                                CreateArticle(mergedXmlText, solutionName, True, folderPath, findArticleImgResult.IdsOut, textFormat, typography, title)
                             End If
                         Else
-                            CreateArticle(solutionTText, solutionName, True, folderPath, Nothing)
+                            CreateArticle(solutionTText, solutionName, True, folderPath, Nothing, textFormat, typography, title)
                         End If
 
 
